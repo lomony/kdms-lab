@@ -12,7 +12,7 @@ Web tools for KDMS. Each edition lives in its own folder.
   (the site root redirects to `asec/`).
 - **Streamlit:** see below, or run locally with `pip install -r requirements.txt && streamlit run streamlit_app.py`.
 - **Offline/local:** download the repo and open `asec/index.html` in Chrome, Edge or Firefox.
-  An internet connection is needed the first time to load the PDF libraries from the CDN.
+  No internet connection needed: the PDF libraries are bundled in `asec/vendor/` (no CDN).
 
 ## Deploy on Streamlit Community Cloud
 On [share.streamlit.io](https://share.streamlit.io) → **Create app → Deploy a public app from GitHub**:

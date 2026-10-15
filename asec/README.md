@@ -21,12 +21,16 @@ asec/
 ├── assets/
 │   ├── kdms-logo.png    # KDMS logo in the header
 │   └── favicon.png      # browser tab icon
-├── index.html           # UI + loads libraries via CDN (pdf-lib 1.17.1, PDF.js 3.11.174)
+├── index.html           # UI + strict CSP; loads bundled libraries from vendor/
 ├── script.js            # Merge logic, thumbnails, reordering
-└── style.css            # Styles and color theme
+├── style.css            # Styles and color theme
+├── vendor/              # pdf-lib 1.17.1 (MIT), PDF.js 3.11.174 (Apache-2.0), bundled locally
+└── VENDOR.md            # versions + SHA-256 of bundled libraries
 ```
 
-## Privacy
+## Privacy & security
+No CDN or external network requests: all libraries are bundled in `vendor/` and a Content-Security-Policy restricts loading to the same origin. Works offline.
+
 No files are uploaded anywhere. All processing happens in the browser. Still, use trusted devices and networks for sensitive documents.
 
 ## License
