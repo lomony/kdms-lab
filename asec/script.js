@@ -109,7 +109,7 @@ function renderList(){
     const thumb = document.createElement('div');
     thumb.className = 'thumb';
     li.appendChild(thumb);
-    renderThumbnail(item, thumb).catch(() => {
+    renderThumbnail(item, thumb).catch((err) => { console.warn('Thumbnail failed:', err);
       thumb.innerHTML = '<span class="tag">Preview not available</span>';
     });
 
@@ -184,9 +184,10 @@ function renderList(){
 
 async function renderThumbnail(item, container){
   if(!item.thumb){
-    if(typeof pdfjsLib === 'undefined') throw new Error('PDF.js not loaded');
+    if(typeof pdfjsLib === 'undefined') await new Promise((res,rej)=>{window.addEventListener('pdfjs-ready',res,{once:true});setTimeout(()=>rej(new Error('PDF.js not loaded')),10000);});
     const arrayBuffer = await item.file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+    const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+    const pdf = await loadingTask.promise;
     try {
       const page = await pdf.getPage(1);
       const viewport = page.getViewport({ scale: 0.35 });
@@ -196,7 +197,7 @@ async function renderThumbnail(item, container){
       await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
       item.thumb = canvas.toDataURL('image/png');
     } finally {
-      pdf.destroy();
+      await loadingTask.destroy();
     }
   }
   const img = document.createElement('img');
@@ -233,7 +234,7 @@ function formatBytes(bytes){
 async function mergeFiles(){
   if(files.length === 0) return;
   if(typeof PDFLib === 'undefined'){
-    throw new Error('pdf-lib could not be loaded. Check your internet connection and reload the page.');
+    throw new Error('pdf-lib could not be loaded. Please reload the page.');
   }
   clearResult();
 

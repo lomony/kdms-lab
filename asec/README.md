@@ -23,7 +23,7 @@ asec/
 ├── index.html           # UI + strict CSP; loads bundled libraries from vendor/
 ├── script.js            # Merge logic, thumbnails, reordering
 ├── style.css            # Styles and color theme
-├── vendor/              # pdf-lib 1.17.1 (MIT), PDF.js 3.11.174 (Apache-2.0), bundled locally
+├── vendor/              # @cantoo/pdf-lib 2.11.1 (MIT), PDF.js 6.4.299 legacy build (Apache-2.0), bundled locally
 └── VENDOR.md            # versions + SHA-256 of bundled libraries
 ```
 

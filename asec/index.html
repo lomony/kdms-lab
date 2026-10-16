@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KDMS PDF Merger — ASEC</title>
@@ -59,14 +59,9 @@
     </footer>
   </main>
 
-  <!-- Libraries bundled locally -->
+  <!-- Libraries bundled locally (no CDN) -->
   <script src="vendor/pdf-lib.min.js"></script>
-  <script src="vendor/pdf.min.js"></script>
-  <script src="vendor/pdf.worker.min.js"></script>
-  <script>
-    // Configure worker for PDF.js
-    pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdf.worker.min.js";
-  </script>
+  <script type="module" src="pdfjs-init.mjs"></script>
   <script src="script.js"></script>
 </body>
 </html>
