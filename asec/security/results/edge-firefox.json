@@ -1,0 +1,198 @@
+[
+ {
+  "name": "password-protected (AES-256, user pw)",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 2,
+  "thumbs": 1,
+  "previewUnavailable": 1,
+  "ms": 165,
+  "status": "Merge failed ❌ \"protected.pdf\" is password-protected or encrypted. Please remove the password (open it and save an unprotected copy) and try again.",
+  "dialogs": [
+   "Merge stopped: \"protected.pdf\" is password-protected or encrypted. Please remove the password (open it and save an unprotected copy) and try again."
+  ],
+  "ext": [],
+  "consoleErrors": [
+   "Error"
+  ],
+  "csp": 0
+ },
+ {
+  "name": "owner-password only encryption (RC4)",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 2,
+  "thumbs": 2,
+  "previewUnavailable": 0,
+  "ms": 185,
+  "status": "Merge failed ❌ \"owner-only-encrypted.pdf\" is password-protected or encrypted. Please remove the password (open it and save an unprotected copy) and try again.",
+  "dialogs": [
+   "Merge stopped: \"owner-only-encrypted.pdf\" is password-protected or encrypted. Please remove the password (open it and save an unprotected copy) and try again."
+  ],
+  "ext": [],
+  "consoleErrors": [
+   "Error"
+  ],
+  "csp": 0
+ },
+ {
+  "name": "corrupted PDF",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 2,
+  "thumbs": 1,
+  "previewUnavailable": 1,
+  "ms": 180,
+  "status": "Merge failed ❌ \"corrupt.pdf\" appears to be damaged (its page tree cannot be read). Please re-export or re-save it and try again.",
+  "dialogs": [
+   "Merge stopped: \"corrupt.pdf\" appears to be damaged (its page tree cannot be read). Please re-export or re-save it and try again."
+  ],
+  "ext": [],
+  "consoleErrors": [
+   "Error"
+  ],
+  "csp": 0
+ },
+ {
+  "name": "non-PDF renamed .pdf",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 2,
+  "thumbs": 1,
+  "previewUnavailable": 1,
+  "ms": 192,
+  "status": "Merge failed ❌ \"notpdf.pdf\" is not a PDF file (it may have been renamed to .pdf). Please remove it and try again.",
+  "dialogs": [
+   "Merge stopped: \"notpdf.pdf\" is not a PDF file (it may have been renamed to .pdf). Please remove it and try again."
+  ],
+  "ext": [],
+  "consoleErrors": [
+   "Error"
+  ],
+  "csp": 0
+ },
+ {
+  "name": "0-byte file",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 2,
+  "thumbs": 1,
+  "previewUnavailable": 1,
+  "ms": 186,
+  "status": "Merge failed ❌ \"empty.pdf\" is empty (0 bytes). Please remove it and try again.",
+  "dialogs": [
+   "Merge stopped: \"empty.pdf\" is empty (0 bytes). Please remove it and try again."
+  ],
+  "ext": [],
+  "consoleErrors": [
+   "Error"
+  ],
+  "csp": 0
+ },
+ {
+  "name": "Thai/Unicode filenames",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 3,
+  "thumbs": 3,
+  "previewUnavailable": 0,
+  "ms": 131,
+  "status": "Done ✅ 6 pages • 3.03 KB",
+  "pages": 6,
+  "orderOK": true,
+  "scriptsInOutput": 0,
+  "outMB": 0,
+  "dialogs": [],
+  "ext": [],
+  "consoleErrors": [],
+  "csp": 0
+ },
+ {
+  "name": "JavaScript actions + AcroForm",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 2,
+  "thumbs": 2,
+  "previewUnavailable": 0,
+  "ms": 93,
+  "status": "Done ✅ 4 pages • 3.7 KB",
+  "pages": 4,
+  "orderOK": true,
+  "scriptsInOutput": 0,
+  "outMB": 0,
+  "dialogs": [],
+  "ext": [],
+  "consoleErrors": [],
+  "csp": 0
+ },
+ {
+  "name": "large: 10 files / 500 pages / 91.7 MiB",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 10,
+  "thumbs": 10,
+  "previewUnavailable": 0,
+  "ms": 1378,
+  "status": "Done ✅ 500 pages • 91.72 MB",
+  "pages": 500,
+  "orderOK": true,
+  "scriptsInOutput": 0,
+  "outMB": 91.7,
+  "dialogs": [],
+  "ext": [],
+  "consoleErrors": [],
+  "csp": 0
+ },
+ {
+  "name": "page limit: 503 pages (big + base)",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 11,
+  "thumbs": 11,
+  "previewUnavailable": 0,
+  "ms": 742,
+  "status": "Merge failed ❌ The merged file would exceed the 500-page limit (adding \"base.pdf\" brings it to 503 pages). Please split the job into smaller merges.",
+  "dialogs": [
+   "Merge stopped: The merged file would exceed the 500-page limit (adding \"base.pdf\" brings it to 503 pages). Please split the job into smaller merges."
+  ],
+  "ext": [],
+  "consoleErrors": [
+   "Error"
+  ],
+  "csp": 0
+ },
+ {
+  "name": "over limit: 116 MB (all big + uat30)",
+  "browser": "firefox 157.0",
+  "dev": "desktop",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "pdfjs": "6.4.299",
+  "files": 25,
+  "thumbs": 25,
+  "previewUnavailable": 0,
+  "result": "merge button disabled",
+  "limits": "Files: 25 • Total size: 108.61 MB (recommended ≤ ~100MB / ~500 pages for speed) — over the limit, please remove some files.",
+  "dialogs": [],
+  "ext": [],
+  "consoleErrors": [],
+  "csp": 0
+ }
+]

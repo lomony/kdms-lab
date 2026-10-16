@@ -20,6 +20,7 @@ const resultEl = document.getElementById('result');
 const LIMIT_BYTES = 100 * 1024 * 1024; // ~100MB total
 const LIMIT_FILES = 50; // reasonable bound
 const LIMIT_PAGES_EST = 500;
+const LIMIT_PAGES = 500; // enforced while merging
 
 let files = []; // [{file, id, name, size, thumb}]
 let dragSrcIndex = null;
@@ -53,8 +54,9 @@ mergeBtn.addEventListener('click', async () => {
   try {
     await mergeFiles();
   } catch (err) {
-    progressText.textContent = 'Merge failed ❌';
-    alert('An error occurred while merging: ' + err.message);
+    progressText.textContent = 'Merge failed ❌ ' + err.message;
+    progressEl.classList.add('is-error');
+    alert('Merge stopped: ' + err.message);
     console.error(err);
   } finally {
     clearBtn.disabled = false;
@@ -62,29 +64,43 @@ mergeBtn.addEventListener('click', async () => {
   }
 });
 
-function handleFiles(selected){
-  const combined = [...files.map(f => f.file), ...selected];
-  // de-duplicate by name+size (simple heuristic)
-  const map = new Map();
-  for(const f of combined){
-    const key = `${f.name}__${f.size}`;
-    if(!map.has(key)) map.set(key, f);
+async function fileKey(f){
+  // Content hash so different files with the same name/size are kept,
+  // and only byte-identical duplicates are skipped (with a visible notice).
+  try {
+    const d = await crypto.subtle.digest('SHA-256', await f.arrayBuffer());
+    return Array.from(new Uint8Array(d), x => x.toString(16).padStart(2,'0')).join('');
+  } catch (e) {
+    return `${f.name}__${f.size}__${f.lastModified}`;
   }
-  const all = Array.from(map.values());
-  if(all.length > LIMIT_FILES){
-    alert(`Only the first ${LIMIT_FILES} files were added.`);
-  }
-  const existing = new Map(files.map(f => [f.file, f]));
-  files = all.slice(0, LIMIT_FILES).map((f, i) => existing.get(f) || ({
-    id: `${f.name}-${f.size}-${i}-${Math.random().toString(36).slice(2,7)}`,
-    file: f,
-    name: f.name,
-    size: f.size,
-    thumb: null
-  }));
-  fileInput.value = '';
+}
 
+async function handleFiles(selected){
+  const seen = new Set(files.map(f => f.hash));
+  const skipped = [];
+  const added = [];
+  for(const f of selected){
+    const hash = await fileKey(f);
+    if(seen.has(hash)){ skipped.push(f.name); continue; }
+    seen.add(hash);
+    added.push({
+      id: `${hash.slice(0,12)}-${Math.random().toString(36).slice(2,7)}`,
+      file: f, name: f.name, size: f.size, hash, thumb: null
+    });
+  }
+  let all = [...files, ...added];
+  const notices = [];
+  if(all.length > LIMIT_FILES){
+    notices.push(`Only the first ${LIMIT_FILES} files were added.`);
+    all = all.slice(0, LIMIT_FILES);
+  }
+  if(skipped.length){
+    notices.push(`Skipped ${skipped.length} duplicate file(s) with identical content: ${skipped.join(', ')}`);
+  }
+  files = all;
+  fileInput.value = '';
   renderList();
+  if(notices.length) limitsEl.textContent += ' — ' + notices.join(' ');
 }
 
 function renderList(){
@@ -207,6 +223,52 @@ async function renderThumbnail(item, container){
   container.appendChild(img);
 }
 
+// Friendly, per-file validation before merging.
+async function loadForMerge(item){
+  const { PDFDocument } = PDFLib;
+  if(item.size === 0) throw new Error(`"${item.name}" is empty (0 bytes). Please remove it and try again.`);
+  const bytes = new Uint8Array(await item.file.arrayBuffer());
+  const head = new TextDecoder('latin1').decode(bytes.subarray(0, 1024));
+  if(!head.includes('%PDF-')) throw new Error(`"${item.name}" is not a PDF file (it may have been renamed to .pdf). Please remove it and try again.`);
+  let src;
+  try {
+    src = await PDFDocument.load(bytes, { updateMetadata: false });
+  } catch (err) {
+    if(err && (err.name === 'EncryptedPDFError' || /encrypt/i.test(err.message))){
+      throw new Error(`"${item.name}" is password-protected or encrypted. Please remove the password (open it and save an unprotected copy) and try again.`);
+    }
+    throw new Error(`"${item.name}" appears to be damaged and could not be read. Please re-export or re-save it and try again.`);
+  }
+  let count;
+  try { count = src.getPageCount(); } catch (err) { count = -1; }
+  if(count < 0) throw new Error(`"${item.name}" appears to be damaged (its page tree cannot be read). Please re-export or re-save it and try again.`);
+  if(count === 0) throw new Error(`"${item.name}" has no pages.`);
+  return src;
+}
+
+// Remove JavaScript / automatic actions from copied pages (defence in depth;
+// this app never executes PDF JavaScript, but the merged file is opened elsewhere).
+function stripPageScripts(page){
+  const { PDFName, PDFDict, PDFArray } = PDFLib;
+  const node = page.node;
+  node.delete(PDFName.of('AA'));
+  const annots = node.lookup(PDFName.of('Annots'));
+  if(annots instanceof PDFArray){
+    for(let i = 0; i < annots.size(); i++){
+      const a = annots.lookup(i);
+      if(!(a instanceof PDFDict)) continue;
+      a.delete(PDFName.of('AA'));
+      const act = a.lookup(PDFName.of('A'));
+      if(act instanceof PDFDict){
+        const s = act.lookup(PDFName.of('S'));
+        if(s && ['JavaScript','Launch','ImportData','SubmitForm','ResetForm'].includes(s.decodeText ? s.decodeText() : String(s).replace('/',''))){
+          a.delete(PDFName.of('A'));
+        }
+      }
+    }
+  }
+}
+
 function totalSize(){
   return files.reduce((s,f)=>s+f.size,0);
 }
@@ -239,6 +301,7 @@ async function mergeFiles(){
   clearResult();
 
   progressEl.hidden = false;
+  progressEl.classList.remove('is-error');
   progressBar.style.width = '0%';
   progressText.textContent = 'Merging…';
 
@@ -249,14 +312,17 @@ async function mergeFiles(){
   const total = files.length;
 
   for(const item of files){
-    const bytes = await item.file.arrayBuffer();
-    let src;
-    try {
-      src = await PDFDocument.load(bytes, { ignoreEncryption: true });
-    } catch (err) {
-      throw new Error(`"${item.name}" could not be read (${err.message})`);
+    const src = await loadForMerge(item);
+    if(merged.getPageCount() + src.getPageCount() > LIMIT_PAGES){
+      throw new Error(`The merged file would exceed the ${LIMIT_PAGES}-page limit (adding "${item.name}" brings it to ${merged.getPageCount() + src.getPageCount()} pages). Please split the job into smaller merges.`);
     }
-    const pages = await merged.copyPages(src, src.getPageIndices());
+    let pages;
+    try {
+      pages = await merged.copyPages(src, src.getPageIndices());
+    } catch (err) {
+      throw new Error(`"${item.name}" appears to be damaged and its pages could not be copied. Please re-export or re-save it and try again.`);
+    }
+    pages.forEach(stripPageScripts);
     for(const p of pages) merged.addPage(p);
     processed++;
     const pct = Math.round((processed/total)*100);
@@ -279,4 +345,12 @@ async function mergeFiles(){
   resultEl.appendChild(dlBtn);
 
   progressText.textContent = `Done ✅ ${merged.getPageCount()} pages • ${formatBytes(blob.size)}`;
+}
+
+// PDF.js is an ES module; browsers block modules on file://. Tell the user instead of failing silently.
+if(location.protocol === 'file:'){
+  const warn = document.createElement('p');
+  warn.className = 'file-warning';
+  warn.textContent = 'This app must be opened from a web server (e.g. the ASEC intranet link), not by double-clicking index.html. Previews and merging may not work from a local file.';
+  document.querySelector('.uploader').prepend(warn);
 }

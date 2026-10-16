@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KDMS PDF Merger — ASEC</title>
@@ -47,7 +47,7 @@
 
     <section class="output-section">
       <div id="progress" class="progress" hidden>
-        <div id="progressBar" class="bar" style="width:0%"></div>
+        <div id="progressBar" class="bar"></div>
         <span id="progressText" class="label">Merging…</span>
       </div>
       <div id="result" class="result"></div>
@@ -55,13 +55,14 @@
 
     <footer class="app-footer">
       <p>KDMS for ASEC • Runs in your browser</p>
+      <p class="small notice">Note: the output is a merged <strong>working copy</strong>. Digital signatures, fillable forms, bookmarks and PDF/A conformance may not be preserved. Keep the original files for official records.</p>
       <p class="small">Tip: For best performance, keep totals below ~100MB or ~500 pages (depends on the device).</p>
     </footer>
   </main>
 
   <!-- Libraries bundled locally (no CDN) -->
-  <script src="vendor/pdf-lib.min.js"></script>
-  <script type="module" src="pdfjs-init.mjs"></script>
-  <script src="script.js"></script>
+  <script src="vendor/pdf-lib.min.js?v=2.11.1"></script>
+  <script type="module" src="pdfjs-init.mjs?v=6.4.299"></script>
+  <script src="script.js?v=2026.10.16"></script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+{
+  "name": "kdms-pdf-merger-asec",
+  "version": "2026.10.16",
+  "private": true,
+  "description": "Pinned third-party libraries bundled in asec/vendor (used for npm audit and SBOM only; no build step).",
+  "license": "MIT",
+  "dependencies": {
+    "pdfjs-dist": "6.4.299",
+    "@cantoo/pdf-lib": "2.11.1"
+  }
+}
