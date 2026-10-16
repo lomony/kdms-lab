@@ -35,7 +35,7 @@ These are byte-identical to the npm packages. The PDF.js main file and worker ar
 | vendor/pdf.worker.min.mjs | PDF.js worker (legacy build) | 6.4.299 | Apache-2.0 | 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 |
 | pdfjs-init.mjs | KM Unit loader | – | MIT | 898c0053e808770ab555ba0734a4329fb1ce5adf85feb9140ddc20f274f9ba28 |
 | script.js | KM Unit app code | – | MIT | 74c4ab8b0cbe36e0369b33e57ae0f9a31248370ea20a01ad199ea961adb4c88f |
-| style.css | KM Unit styles | – | MIT | 62134b77ce27c9c0297e68c26eb64d63b3a9b412c99f532777de0c268400e349 |
+| style.css | KM Unit styles | – | MIT | bbc278f275305f6ac5d5a36dd00fe8f36b0404056c44e074697cde1296c31863 |
 | index.html | KM Unit page | – | MIT | 10ab81d9ba80607ceb1325fad1b470146deebb10689481e5c9d46bff38e388ae |
 
 ## Vulnerability scanning (16 Oct 2026; reports in `security/`)
