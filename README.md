@@ -1,5 +1,4 @@
 # KDMS Lab
-*Developed by KM Team*
 
 Web tools for KDMS. Each edition lives in its own folder.
 

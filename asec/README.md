@@ -1,5 +1,4 @@
 # KDMS PDF Merger — ASEC edition
-*Developed by KM Team*
 
 A small web app to merge PDF files **100% client‑side**. No server uploads; everything runs in your browser.
 
