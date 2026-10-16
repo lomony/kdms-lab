@@ -45,3 +45,6 @@ for i in range(30):
     heavy(f'uat30/f{i+1:02d}.pdf',n,300+i,int(920/n)); 
 os.makedirs('big',exist_ok=True)
 for i in range(10): heavy(f'big/b{i+1:02d}.pdf',50,300+i*7,150)
+# same name + same size, different content (dedupe test)
+for d,t in (('d1','AAAA'),('d2','BBBB')):
+    os.makedirs(d,exist_ok=True); c=canvas.Canvas(d+'/same.pdf',pagesize=(333,600)); c.drawString(30,300,t); c.showPage(); c.save()

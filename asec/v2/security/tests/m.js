@@ -1,5 +1,5 @@
 const pw=require('playwright');const {PDFDocument,PDFName,PDFDict,PDFArray}=require('pdf-lib');const fs=require('fs');const path=require('path');
-const FX='/tmp/fx';
+const FX=process.env.FX||'/tmp/fx';
 async function widthsOf(f){const d=await PDFDocument.load(fs.readFileSync(f),{ignoreEncryption:true});return d.getPages().map(p=>Math.round(p.getWidth()));}
 function scripts(d){let n=0;const c=d.catalog;if(c.get(PDFName.of('OpenAction')))n++;const names=c.lookup(PDFName.of('Names'));if(names instanceof PDFDict&&names.get(PDFName.of('JavaScript')))n++;
  for(const p of d.getPages()){if(p.node.get(PDFName.of('AA')))n++;const a=p.node.lookup(PDFName.of('Annots'));if(a instanceof PDFArray)for(let i=0;i<a.size();i++){const x=a.lookup(i);if(!(x instanceof PDFDict))continue;if(x.get(PDFName.of('AA')))n++;const A=x.lookup(PDFName.of('A'));if(A instanceof PDFDict&&String(A.get(PDFName.of('S')))==='/JavaScript')n++;}}return n;}
@@ -19,7 +19,7 @@ async function run(o){const {bt,dev,url,files,name}=o;const br=await pw[bt].laun
  const t0=Date.now();await pg.click('#mergeBtn');
  await Promise.race([pg.waitForSelector('#result a',{timeout:o.to||120000}),pg.waitForFunction(()=>/failed/.test(document.getElementById('progressText').textContent),null,{timeout:o.to||120000})]).catch(e=>r.timeout=true);
  r.ms=Date.now()-t0;if(poll){clearInterval(poll);r.peakJSHeapMB=Math.round(peak/1048576);}r.status=await pg.$eval('#progressText',e=>e.textContent);
- if(await pg.$('#result a')){const [dl]=await Promise.all([pg.waitForEvent('download'),pg.click('#result a')]);const out=`/tmp/pwt/out-${Date.now()}.pdf`;await dl.saveAs(out);
+ if(await pg.$('#result a')){const [dl]=await Promise.all([pg.waitForEvent('download'),pg.click('#result a')]);const out=`${require('os').tmpdir()}/out-${Date.now()}.pdf`;await dl.saveAs(out);
   const got=await widthsOf(out);let exp=[];for(const f of files)exp=exp.concat(await widthsOf(f));r.pages=got.length;r.orderOK=JSON.stringify(got)===JSON.stringify(exp);
   r.scriptsInOutput=scripts(await PDFDocument.load(fs.readFileSync(out)));r.outMB=+(fs.statSync(out).size/1048576).toFixed(1);fs.unlinkSync(out);}
  }

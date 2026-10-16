@@ -1,6 +1,6 @@
 # KDMS PDF Merger (ASEC) v2.0 – Security Note for ITSD
 
-Version 2.0 (16 Oct 2026), demo/test URL https://lomony.github.io/kdms-lab/asec/v2/. Changes from v1 (the 2025 prototype at jeenalomo.github.io/kdms-pdf-merger-client and the 15 Oct 2026 build at /asec/): no CDN, PDF.js 3.11.174 → 6.4.299, pdf-lib 1.17.1 → @cantoo/pdf-lib 2.11.1, CSP without unsafe-inline, input validation, page limit, PDF script stripping.
+Version 2.0 (16 Oct 2026), demo/test URL https://lomony.github.io/kdms-lab/asec/v2/. Changes from v1 (**deprecated**: the 2025 prototype at jeenalomo.github.io/kdms-pdf-merger-client and the 15 Oct 2026 build at /asec/): no CDN, PDF.js 3.11.174 → 6.4.299, pdf-lib 1.17.1 → @cantoo/pdf-lib 2.11.1, CSP without unsafe-inline, input validation, page limit, PDF script stripping.
 
 _Updated 16 Oct 2026. Developed by the ASEC KM Unit with AI-assisted coding; reviewed and tested by the KM Unit (see TEST_REPORT.md, MAINTENANCE.md)._
 
@@ -34,9 +34,9 @@ These are byte-identical to the npm packages. The PDF.js main file and worker ar
 | vendor/pdf.min.mjs | PDF.js (pdfjs-dist, legacy build) | 6.4.299 | Apache-2.0 | bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 |
 | vendor/pdf.worker.min.mjs | PDF.js worker (legacy build) | 6.4.299 | Apache-2.0 | 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 |
 | pdfjs-init.mjs | KM Unit loader | – | MIT | 898c0053e808770ab555ba0734a4329fb1ce5adf85feb9140ddc20f274f9ba28 |
-| script.js | KM Unit app code | – | MIT | 74c4ab8b0cbe36e0369b33e57ae0f9a31248370ea20a01ad199ea961adb4c88f |
-| style.css | KM Unit styles | – | MIT | bbc278f275305f6ac5d5a36dd00fe8f36b0404056c44e074697cde1296c31863 |
-| index.html | KM Unit page | – | MIT | 10ab81d9ba80607ceb1325fad1b470146deebb10689481e5c9d46bff38e388ae |
+| script.js | KM Unit app code | – | MIT | ceea5ba96b54faedbbbde28aec7c16cc52950ef58ed55ccf5cf6d1baf958df8d |
+| style.css | KM Unit styles | – | MIT | 426a0b7dee42227682265aaf0cfe88409f1cd35a7d98e6785d0ab6624013fcd4 |
+| index.html | KM Unit page | – | MIT | a5e7f2701c04fc865b7250959da1791944b146c18af90644f571b2502ab090f8 |
 
 ## Vulnerability scanning (16 Oct 2026; reports in `security/`)
 | Scanner | Scope | Result |
@@ -62,7 +62,35 @@ SBOM: `security/sbom.json` (CycloneDX 1.6, generated from the pinned lockfile). 
 ## App hardening
 - Hard limits are enforced in code: 100 MB, 500 pages, 50 files.
 - Rejected with a clear message: password-protected or encrypted, damaged, empty and non-PDF files.
-- Duplicate detection uses a content SHA-256, so different files with the same name are both kept.
-- JavaScript and automatic actions are stripped from the merged pages, and PDF.js runs without scripting.
+- Duplicates are detected by content SHA-256. Different files with the same name are both kept. Byte-identical copies are **added and tagged "Duplicate (identical content)"** with a notice, so the user can remove them; nothing is skipped silently.
+- PDF actions: see the next section for the exact scope (not a sanitizer).
 - File names are shown with `textContent`, never as HTML.
 - **Output is a working copy.** Digital signatures, forms, bookmarks and PDF/A conformance may not be preserved. The UI says this too.
+- **Memory:** a 500-page / 92 MB merge peaked at about **0.9 GB** of browser memory (Chromium, all processes). Machines with little RAM (≤ 4 GB) or many open tabs may be slow or fail on very large merges, so split big jobs.
+
+## PDF actions
+**PDF actions: what the code removes (exact scope). This is not a PDF sanitizer.**
+On every copied page, `stripPageScripts()` in script.js removes:
+- the page's `/AA` (additional actions);
+- `/AA` on every annotation;
+- `/A` on every annotation, when that action, or any action in its `/Next` chain, is anything other than an internal `/GoTo`. This covers `/JavaScript`, `/URI`, `/GoToR`, `/GoToE`, `/Launch`, `/SubmitForm`, `/ResetForm`, `/ImportData`, `/Named`, `/Rendition` and so on;
+- `/AA` on the form-field parents of widget annotations.
+
+It keeps internal page links (`/GoTo`, `/Dest`).
+
+pdf-lib's `copyPages` never copies document-level objects: `/OpenAction`, `/Names` (including `/JavaScript` and embedded files), `/AcroForm` (form logic) and outlines/bookmarks.
+
+It does **not** inspect or change page content streams, fonts, images, XObjects, file-attachment annotations, or malformed or obfuscated structures. Untrusted PDFs still need to be scanned by ASEC's normal antivirus and content controls.
+
+Merging itself never executes PDF JavaScript: pdf-lib has no script engine, and PDF.js renders thumbnails only, with no scripting.
+
+## Demo banner (config)
+`index.html` contains `<meta name="kdms-demo-banner" content="auto">`. It has three values:
+- `auto` (default): the red **"DEMO ONLY – Use synthetic test documents. Not approved for official or restricted documents."** banner shows only when the hostname ends in `github.io`.
+- `off`: never shown. Use this for the ITSD/IIS production build once it is approved.
+- `on`: always shown, for example on an internal test server.
+
+## v1 is deprecated
+- The **2025 prototype** at https://jeenalomo.github.io/kdms-pdf-merger-client/ (repo JeenaLomo/kdms-pdf-merger-client) and the **15 Oct 2026 build** formerly at `/asec/` are **deprecated and must not be used**.
+- The 2025 prototype loads PDF.js 3.11.174 from cdnjs (affected by CVE-2024-4367) and an unpinned pdf-lib from unpkg. As of 16 Oct 2026 it is still online. It is in a separate GitHub account (JeenaLomo), not in lomony/kdms-lab, and has to be taken down or archived by that account's owner.
+- `/asec/` now redirects to `/asec/v2/`.

@@ -1,0 +1,9 @@
+{
+  "name": "kdms-pdf-merger-tests",
+  "private": true,
+  "description": "Headless browser tests for KDMS PDF Merger v2 (not shipped with the app)",
+  "dependencies": {
+    "playwright": "1.64.1",
+    "pdf-lib": "1.17.1"
+  }
+}

@@ -66,7 +66,7 @@ mergeBtn.addEventListener('click', async () => {
 
 async function fileKey(f){
   // Content hash so different files with the same name/size are kept,
-  // and only byte-identical duplicates are skipped (with a visible notice).
+  // byte-identical duplicates are still added, but tagged "Duplicate" so the user can remove them.
   try {
     const d = await crypto.subtle.digest('SHA-256', await f.arrayBuffer());
     return Array.from(new Uint8Array(d), x => x.toString(16).padStart(2,'0')).join('');
@@ -81,11 +81,12 @@ async function handleFiles(selected){
   const added = [];
   for(const f of selected){
     const hash = await fileKey(f);
-    if(seen.has(hash)){ skipped.push(f.name); continue; }
+    const dup = seen.has(hash);
+    if(dup) skipped.push(f.name);
     seen.add(hash);
     added.push({
       id: `${hash.slice(0,12)}-${Math.random().toString(36).slice(2,7)}`,
-      file: f, name: f.name, size: f.size, hash, thumb: null
+      file: f, name: f.name, size: f.size, hash, dup, thumb: null
     });
   }
   let all = [...files, ...added];
@@ -95,7 +96,7 @@ async function handleFiles(selected){
     all = all.slice(0, LIMIT_FILES);
   }
   if(skipped.length){
-    notices.push(`Skipped ${skipped.length} duplicate file(s) with identical content: ${skipped.join(', ')}`);
+    notices.push(`${skipped.length} file(s) are identical copies of files already in the list and are marked "Duplicate": ${skipped.join(', ')}. Remove them if you do not want them twice.`);
   }
   files = all;
   fileInput.value = '';
@@ -144,6 +145,13 @@ function renderList(){
     const nameEl = meta.querySelector('.name');
     nameEl.textContent = `${idx + 1}. ${item.name}`;
     nameEl.title = item.name;
+    if(item.dup){
+      li.classList.add('is-duplicate');
+      const tag = document.createElement('span');
+      tag.className = 'tag tag-duplicate';
+      tag.textContent = 'Duplicate (identical content)';
+      meta.insertBefore(tag, nameEl.nextSibling);
+    }
     li.appendChild(meta);
 
     // Drag & Drop reorder
@@ -246,28 +254,60 @@ async function loadForMerge(item){
   return src;
 }
 
-// Remove JavaScript / automatic actions from copied pages (defence in depth;
-// this app never executes PDF JavaScript, but the merged file is opened elsewhere).
+// Remove interactive actions from copied pages. This is NOT a PDF sanitizer.
+// Removed: page /AA; on every annotation: /AA, and /A when the action (or any
+// action in its /Next chain) is not an internal /GoTo; /AA on form-field
+// parents of widget annotations. Internal page links (/GoTo, /Dest) are kept.
+// Document-level items (/OpenAction, /Names /JavaScript, /AcroForm) are never
+// copied by pdf-lib's copyPages. Content streams, fonts, images and embedded
+// files inside annotations are copied unchanged.
+const ALLOWED_ACTIONS = new Set(['GoTo']);
+function actionChainIsUnsafe(act, depth = 0){
+  const { PDFName, PDFDict, PDFArray } = PDFLib;
+  if(!(act instanceof PDFDict) || depth > 32) return depth > 32;
+  const s = act.lookup(PDFName.of('S'));
+  const type = s ? (s.decodeText ? s.decodeText() : String(s).replace('/','')) : '';
+  if(!ALLOWED_ACTIONS.has(type)) return true;
+  const next = act.lookup(PDFName.of('Next'));
+  if(next instanceof PDFDict) return actionChainIsUnsafe(next, depth + 1);
+  if(next instanceof PDFArray){
+    for(let i = 0; i < next.size(); i++) if(actionChainIsUnsafe(next.lookup(i), depth + 1)) return true;
+  }
+  return false;
+}
 function stripPageScripts(page){
   const { PDFName, PDFDict, PDFArray } = PDFLib;
   const node = page.node;
   node.delete(PDFName.of('AA'));
   const annots = node.lookup(PDFName.of('Annots'));
-  if(annots instanceof PDFArray){
-    for(let i = 0; i < annots.size(); i++){
-      const a = annots.lookup(i);
-      if(!(a instanceof PDFDict)) continue;
-      a.delete(PDFName.of('AA'));
-      const act = a.lookup(PDFName.of('A'));
-      if(act instanceof PDFDict){
-        const s = act.lookup(PDFName.of('S'));
-        if(s && ['JavaScript','Launch','ImportData','SubmitForm','ResetForm'].includes(s.decodeText ? s.decodeText() : String(s).replace('/',''))){
-          a.delete(PDFName.of('A'));
-        }
-      }
+  if(!(annots instanceof PDFArray)) return;
+  for(let i = 0; i < annots.size(); i++){
+    const a = annots.lookup(i);
+    if(!(a instanceof PDFDict)) continue;
+    a.delete(PDFName.of('AA'));
+    const act = a.lookup(PDFName.of('A'));
+    if(act && actionChainIsUnsafe(act)) a.delete(PDFName.of('A'));
+    let parent = a.lookup(PDFName.of('Parent'));
+    for(let d = 0; parent instanceof PDFDict && d < 32; d++){
+      parent.delete(PDFName.of('AA'));
+      parent = parent.lookup(PDFName.of('Parent'));
     }
   }
 }
+
+// Demo banner. Controlled by <meta name="kdms-demo-banner" content="auto|on|off">.
+// auto (default) = shown only on *.github.io. Production (IIS) builds set "off".
+(function demoBanner(){
+  const meta = document.querySelector('meta[name="kdms-demo-banner"]');
+  const mode = (meta && meta.content || 'auto').toLowerCase();
+  const show = mode === 'on' || (mode === 'auto' && /(^|\.)github\.io$/i.test(location.hostname));
+  if(!show) return;
+  const b = document.createElement('div');
+  b.className = 'demo-banner';
+  b.setAttribute('role', 'alert');
+  b.textContent = 'DEMO ONLY – Use synthetic test documents. Not approved for official or restricted documents.';
+  document.body.prepend(b);
+})();
 
 function totalSize(){
   return files.reduce((s,f)=>s+f.size,0);

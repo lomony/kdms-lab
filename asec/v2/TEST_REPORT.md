@@ -55,14 +55,15 @@ Tester: KM Unit (automated, headless browsers on a Linux test machine via Playwr
 ### Other tests
 | Test | Result |
 |---|---|
-| Two different files with the same name and size | Both kept (content SHA-256 de-duplication). Re-adding a byte-identical file is skipped with a visible notice. |
+| Two different files with the same name and size | Both kept (content SHA-256). |
+| Byte-identical file added twice (RC) | Both added. The second is tagged "Duplicate (identical content)" and a notice is shown. The user removed it with **Remove**, leaving 1 card. |
 | `file://` (double-click `index.html`) | **Does not work**: Chromium blocks ES modules on `file://` (CORS). The page now shows a warning, and the docs say a web server is required. No external internet is needed in either case. |
-| PDF JavaScript / form | No `app.alert` dialog in any browser. PDF.js is not given scripting and pdf-lib never runs scripts. The output has 0 JavaScript or automatic actions: document-level JS is not copied, and page `/AA` and JavaScript/Launch/SubmitForm link actions are stripped. The form field widget is kept as a copy only. |
+| PDF JavaScript / form | No `app.alert` dialog appeared in any browser. Removal checks: see the "Action removal" section below. |
 | Inline styles | `index.html` has no `style=` attributes or `<style>` blocks. CSP `style-src 'self'` produced 0 violations in all runs (JS sets `element.style`, which CSP allows). |
 | Live site (GitHub Pages, demo only) | See the commit notes and the final report. |
 
 ### Memory
-- Merging 500 pages / 91.7 MiB in Chromium: peak RSS across all browser processes ≈ 0.86–0.88 GB, about 1 s.
+- Merging 500 pages / 91.7 MiB in Chromium: peak RSS across all browser processes ≈ 0.86–0.88 GB (about 0.9 GB), about 1 s. Low-RAM machines (≤ 4 GB) may struggle; split large jobs.
 - 69 pages / 33.7 MiB: ≈ 0.74 GB.
 - Enforced limits: 100 MB total, 500 pages, 50 files.
 
@@ -73,3 +74,12 @@ Tester: KM Unit (automated, headless browsers on a Linux test machine via Playwr
 
 ## v2.0 release check (16 Oct 2026)
 The app moved to `/asec/v2/` and got a "Version 2.0" badge. The smoke merge (3 files, 6 pages, order checked) passed at `/asec/v2/` on Chromium, Firefox, WebKit, and Pixel 7 and iPhone 14 emulation: 0 external requests and 0 CSP violations. `/asec/` now redirects to `/asec/v2/` with a meta refresh and no script.
+
+## v2.0.0 release-candidate round (16 Oct 2026)
+The whole suite was re-run with one command (`security/tests/run-all.sh`, see `security/README-tests.md`). Results are in `security/results/run-20261016-175235/`. All edge cases on Chromium, Firefox and WebKit, and the 30-file merge on all 6 browser/device rows, gave the same outcomes as above, with 0 external requests and 0 CSP violations.
+
+| Test | Result |
+|---|---|
+| Action removal (`actions.pdf`) | Input annotations: `/URI`, `/GoToR`, `/Launch`, `/GoTo`+`/Next` JavaScript, plain `/GoTo`, and a widget whose field parent has `/AA`. Output: the first four lose their action, **plain internal `/GoTo` is kept**, and the field-parent `/AA` is removed. No dialogs. |
+| Byte-identical duplicate | Added and tagged "Duplicate (identical content)" with a notice. **Remove** works. |
+| Demo banner | Not shown on localhost (`auto`). Shown on lomony.github.io (live check). |

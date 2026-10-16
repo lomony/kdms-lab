@@ -3,6 +3,8 @@
 <head>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta charset="utf-8" />
+  <!-- Demo banner: auto = only on *.github.io; set "off" for the ITSD/IIS production build, "on" to force -->
+  <meta name="kdms-demo-banner" content="auto" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KDMS PDF Merger — ASEC · v2.0</title>
   <meta name="description" content="KDMS PDF Merger for ASEC. Merge PDF files entirely in the browser. 100% client‑side. No uploads." />
@@ -64,6 +66,6 @@
   <!-- Libraries bundled locally (no CDN) -->
   <script src="vendor/pdf-lib.min.js?v=2.11.1"></script>
   <script type="module" src="pdfjs-init.mjs?v=6.4.299"></script>
-  <script src="script.js?v=2.0"></script>
+  <script src="script.js?v=2.0.0"></script>
 </body>
 </html>

@@ -22,3 +22,11 @@ The app was developed by the ASEC KM Unit with **AI-assisted coding**. All code 
 6. Re-run the scanners (in `security/`): `npm audit --json > npm-audit.json`, `osv-scanner scan source --lockfile package-lock.json --format json > osv-scanner.json`, `npx retire --path ../vendor --outputformat json --outputpath retire.json`, `npx @cyclonedx/cyclonedx-npm --package-lock-only --output-format JSON --output-file sbom.json`.
 7. Re-run the tests in `TEST_REPORT.md` (at minimum: merge + page order, encrypted/corrupt files, 0 external requests, no CSP violations) on Chrome/Edge and Firefox.
 8. Update the SHA-256 table in `VENDOR.md` / `SECURITY_NOTE.md` (`sha256sum vendor/* *.mjs script.js`).
+
+## Release integrity (recommendations; settings were not changed)
+- Releases are frozen as git tags (e.g. `v2.0.0`) with a GitHub Release that attaches the zip and lists the commit SHA and the zip SHA-256. ITSD should deploy only from a tagged release and check the SHA-256 first.
+- Recommended for the ASEC-owned repo, on the default and release branches:
+  - **Branch protection**: require a pull request with at least 1 review from ITSD/KM, require status checks to pass, no force pushes, no deletions.
+  - **Tag protection** for `v*`.
+  - Optionally, signed commits.
+- To turn off the demo banner in production, set `<meta name="kdms-demo-banner" content="off">` in index.html.
