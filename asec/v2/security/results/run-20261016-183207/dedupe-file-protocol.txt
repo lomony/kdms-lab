@@ -1,0 +1,2 @@
+same name+size, different content -> 2 cards; re-adding identical file -> 3 cards; notice: 1 file(s) are identical copies of files already in the list and are marked "Duplicate": same.pdf. Remove them if you do not want them twice.
+file:// pdfjs loaded: undefined errors: Access to script at 'file:///workspace/kdms-lab/asec/v2/pdfjs-init.mjs?v=6.4.299' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https. | Failed to load resource: net::ERR_FAILED

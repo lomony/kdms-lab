@@ -1,4 +1,4 @@
-# KDMS PDF Merger — ASEC edition · v2.0 (16 Oct 2026)
+# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC edition) · v2.1 (16 Oct 2026)
 
 Demo/test URL: https://lomony.github.io/kdms-lab/asec/v2/ (the old `/asec/` link redirects here).
 
@@ -7,8 +7,9 @@ A small web app to merge PDF files **100% client‑side**. No server uploads; ev
 ## Features
 - Select multiple PDFs (button or drag & drop) and reorder them (drag, or ↑ / ↓ buttons)
 - First‑page thumbnails via [PDF.js](https://mozilla.github.io/pdf.js/)
-- Merge with [pdf‑lib](https://pdf-lib.js.org/) and download right away as `ASEC-merged-YYYYMMDD-HHMM.pdf`
-- ASEAN‑inspired color theme, KDMS logo in the header, works on phones
+- Merge with [pdf‑lib](https://pdf-lib.js.org/) , then download it from the "Download …" button
+- "KDMS Lab" branding with a KDMS-inspired SVG logo mark (`assets/kdms-lab-mark.svg`, favicon `assets/favicon.svg`/`.png`); card layout with a dashed drop zone, "Files to merge" list (thumbnail, page count, size, ↑ ↓ ✕), an "Output file name" field (default `ASEC-merged-YYYYMMDD-HHMM.pdf`), and a responsive mobile layout
+- Errors and notices appear inline in the page (no pop-up dialogs)
 
 > For speed and browser memory, keep totals under ~100MB or ~500 pages (device‑dependent).
 > **Memory:** a 500-page / 92 MB merge peaked at about **0.9 GB** of browser memory (Chromium, all processes). Machines with little RAM (≤ 4 GB) or many open tabs may be slow or fail on very large merges, so split big jobs.

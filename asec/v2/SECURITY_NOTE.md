@@ -1,4 +1,6 @@
-# KDMS PDF Merger (ASEC) v2.0 – Security Note for ITSD
+# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC) v2.1 – Security Note for ITSD
+
+v2.1.0 (16 Oct 2026) is a UI re-skin with KDMS Lab branding. Errors are shown inline, with no `alert()`, and the security behaviour is unchanged from v2.0.0. The new SVG logo files are static and contain no scripts. They load as `<img>`, which is allowed by `img-src 'self'`.
 
 Version 2.0 (16 Oct 2026), demo/test URL https://lomony.github.io/kdms-lab/asec/v2/. Changes from v1 (**deprecated**: the 2025 prototype at jeenalomo.github.io/kdms-pdf-merger-client and the 15 Oct 2026 build at /asec/): no CDN, PDF.js 3.11.174 → 6.4.299, pdf-lib 1.17.1 → @cantoo/pdf-lib 2.11.1, CSP without unsafe-inline, input validation, page limit, PDF script stripping.
 
@@ -34,9 +36,9 @@ These are byte-identical to the npm packages. The PDF.js main file and worker ar
 | vendor/pdf.min.mjs | PDF.js (pdfjs-dist, legacy build) | 6.4.299 | Apache-2.0 | bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 |
 | vendor/pdf.worker.min.mjs | PDF.js worker (legacy build) | 6.4.299 | Apache-2.0 | 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 |
 | pdfjs-init.mjs | KM Unit loader | – | MIT | 898c0053e808770ab555ba0734a4329fb1ce5adf85feb9140ddc20f274f9ba28 |
-| script.js | KM Unit app code | – | MIT | ceea5ba96b54faedbbbde28aec7c16cc52950ef58ed55ccf5cf6d1baf958df8d |
-| style.css | KM Unit styles | – | MIT | 426a0b7dee42227682265aaf0cfe88409f1cd35a7d98e6785d0ab6624013fcd4 |
-| index.html | KM Unit page | – | MIT | a5e7f2701c04fc865b7250959da1791944b146c18af90644f571b2502ab090f8 |
+| script.js | KM Unit app code | – | MIT | b375623ad9badf48822ae28a2588674f7e754c60e4625577b002576dfe0871d8 |
+| style.css | KM Unit styles | – | MIT | d086106a751942be5e2eacb74ccdd7290dac50c11c9340a176d2f037910fb494 |
+| index.html | KM Unit page | – | MIT | 85dc44389f496733f8229eeaa85c800ffb021a033cf1f1bfed2888de744fe9d0 |
 
 ## Vulnerability scanning (16 Oct 2026; reports in `security/`)
 | Scanner | Scope | Result |

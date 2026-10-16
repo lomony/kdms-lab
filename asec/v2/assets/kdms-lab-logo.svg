@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 64" role="img" aria-label="KDMS Lab">
+  <title>KDMS Lab</title>
+  <g>
+  <!-- circuit traces + nodes (the "Lab") -->
+  <g fill="none" stroke="#ffb300" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 17l6-3.5V7"/><path d="M45 25l7-4h5"/><path d="M47 34l7 4"/>
+  </g>
+  <g fill="#ffcd00" stroke="#f59e0b" stroke-width="1.2"><circle cx="46" cy="6" r="3"/><circle cx="58" cy="21" r="3"/><circle cx="56" cy="39.5" r="3"/></g>
+  <!-- open box (orange), isometric -->
+  <path d="M6 37l22 11 22-11-22-11z" fill="#ffa726"/>
+  <path d="M6 37v8l22 11v-8z" fill="#ef6c00"/>
+  <path d="M50 37v8L28 56v-8z" fill="#fb8c00"/>
+  <path d="M6 37V22l8-4v15z" fill="#ffb74d"/>
+  <!-- document / book stack as pixel blocks (light blue) -->
+  <g>
+    <path d="M16 34l12 6 12-6-12-6z" fill="#e3f2fd"/>
+    <path d="M18 28l10 5 10-5-10-5z" fill="#4fc3f7"/><path d="M18 28v3l10 5v-3z" fill="#0288d1"/><path d="M38 28v3l-10 5v-3z" fill="#29b6f6"/>
+    <path d="M21 20l8 4 8-4-8-4z" fill="#81d4fa"/><path d="M21 20v3l8 4v-3z" fill="#0277bd"/><path d="M37 20v3l-8 4v-3z" fill="#03a9f4"/>
+    <path d="M25 13l5 2.5 5-2.5-5-2.5z" fill="#b3e5fc"/><path d="M25 13v3l5 2.5v-3z" fill="#01579b"/><path d="M35 13v3l-5 2.5v-3z" fill="#0288d1"/>
+  </g>
+</g>
+  <text x="72" y="45" font-family="Montserrat, 'Noto Sans', Arial, sans-serif" font-size="36" font-weight="800" fill="#111827" letter-spacing="1">KDMS</text>
+  <text x="204" y="45" font-family="Montserrat, 'Noto Sans', Arial, sans-serif" font-size="24" font-weight="700" fill="#ef6c00">Lab</text>
+  <rect x="205" y="51" width="40" height="3" rx="1.5" fill="#29b6f6"/>
+</svg>

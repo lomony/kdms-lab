@@ -83,3 +83,14 @@ The whole suite was re-run with one command (`security/tests/run-all.sh`, see `s
 | Action removal (`actions.pdf`) | Input annotations: `/URI`, `/GoToR`, `/Launch`, `/GoTo`+`/Next` JavaScript, plain `/GoTo`, and a widget whose field parent has `/AA`. Output: the first four lose their action, **plain internal `/GoTo` is kept**, and the field-parent `/AA` is removed. No dialogs. |
 | Byte-identical duplicate | Added and tagged "Duplicate (identical content)" with a notice. **Remove** works. |
 | Demo banner | Not shown on localhost (`auto`). Shown on lomony.github.io (live check). |
+
+## v2.1.0: KDMS Lab re-skin (16 Oct 2026)
+The UI was rebuilt in the "PDF Merge Tool" layout with KDMS Lab branding: a tricolour strip, a card layout, a dashed drop zone, a "Files to merge" list and an "Output file name" field. A new logo is in `assets/kdms-lab-*.svg`. Errors now appear inline instead of in pop-up dialogs. Merge logic, validation, limits, action removal and the CSP are unchanged.
+
+`run-all.sh` against the local build: **36 runs, 0 failures**. Results are in `security/results/run-20261016-184557/`.
+- The edge-case suite passed on Chromium, Firefox and WebKit.
+- The 30-file merge passed on all 6 browser/device rows.
+- Action removal and duplicate tagging passed.
+- 0 external requests and 0 CSP violations.
+
+Mobile layout: no horizontal overflow at 390 px (iPhone 14) or 412 px (Pixel 7) with files loaded and a merge completed.

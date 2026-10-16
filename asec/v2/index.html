@@ -6,66 +6,63 @@
   <!-- Demo banner: auto = only on *.github.io; set "off" for the ITSD/IIS production build, "on" to force -->
   <meta name="kdms-demo-banner" content="auto" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KDMS PDF Merger — ASEC · v2.0</title>
-  <meta name="description" content="KDMS PDF Merger for ASEC. Merge PDF files entirely in the browser. 100% client‑side. No uploads." />
-  <link rel="stylesheet" href="style.css" />
+  <title>PDF Merge Tool · KDMS Lab · v2.1</title>
+  <meta name="description" content="Merge PDF files entirely in the browser. 100% client-side. No uploads." />
+  <link rel="stylesheet" href="style.css?v=2.1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <div class="logo-wrap"><img src="assets/kdms-logo.png" alt="KDMS logo" class="logo" /></div>
-      <div class="brand-text">
-        <h1>KDMS PDF Merger <span class="badge">ASEC</span> <span class="badge badge-version" title="Hardened release, 16 Oct 2026">Version 2.0</span></h1>
-        <p>Merge PDF files <strong>100% client‑side</strong>  → your files never leave the browser.</p>
-      </div>
+<div class="brandbar" aria-hidden="true"></div>
+<header><div class="wrap hd">
+  <div class="mark"><img class="logo-lockup" src="assets/kdms-lab-logo.svg" alt="KDMS Lab" width="152" height="36" /><span class="brand"><span>· PDF Merge Tool</span></span> <span class="badge-version" title="Release v2.1.0, 16 Oct 2026">Version 2.1</span></div>
+  <div class="privacy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Files never leave your device</div>
+</div></header>
+
+<main class="wrap">
+  <h1>Merge PDF files</h1>
+  <p class="lede">Combine several PDFs into one document, in the order you choose. Files never leave your device — everything runs in this browser.</p>
+
+  <section class="uploader">
+    <div class="drop" id="dropzone">
+      <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      <p><strong>Drag PDF files here</strong></p>
+      <p class="hint">or</p>
+      <button class="btn btn-secondary" id="browseBtn" type="button">Choose PDF files</button>
+      <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple class="sr" tabindex="-1" aria-hidden="true" />
+      <p class="hint">PDF only · up to 50 files, 100 MB and 500 pages · password-protected files can't be merged</p>
     </div>
-  </header>
+  </section>
+  <div class="alert" id="err" role="alert" hidden></div>
 
-  <main class="container">
-    <section class="uploader">
-      <div class="dropzone" id="dropzone">
-        <input type="file" id="fileInput" accept="application/pdf" multiple hidden />
-        <div class="dropzone-inner">
-          <p class="dz-title">Drop PDF files here</p>
-          <p class="dz-sub">or</p>
-          <button id="browseBtn" type="button" class="btn primary">Choose files</button>
-          <p class="dz-hint">Multi‑file supported • Drag to reorder • First‑page thumbnail preview</p>
-        </div>
-      </div>
-    </section>
+  <div class="listhead"><h2 id="lh">Files to merge</h2><span class="count" id="count" aria-live="polite"></span></div>
+  <div class="empty" id="empty">No files yet. Add two or more PDFs to get started.</div>
+  <ol class="files" id="fileList" aria-labelledby="lh" hidden></ol>
+  <p class="limits" id="limits" aria-live="polite"></p>
 
-    <section class="filelist-section">
-      <div class="list-header">
-        <h2>Selected files</h2>
-        <div class="actions">
-          <button id="clearBtn" type="button" class="btn subtle" title="Clear file list">Clear</button>
-          <button id="mergeBtn" type="button" class="btn success" disabled>Merge PDFs</button>
-        </div>
-      </div>
-      <ul id="fileList" class="file-list" aria-live="polite"></ul>
-      <div id="limits" class="limits"></div>
-    </section>
+  <div class="out">
+    <div class="field"><label for="fname">Output file name</label>
+      <div class="inp"><input id="fname" placeholder="ASEC-merged-YYYYMMDD-HHMM" autocomplete="off" spellcheck="false" /><span aria-hidden="true">.pdf</span></div></div>
+    <button class="btn btn-ghost" id="clearBtn" type="button" disabled>Clear all</button>
+    <button class="btn btn-primary" id="mergeBtn" type="button" disabled>
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span id="mlabel">Merge PDFs</span></button>
+  </div>
+  <div class="progress" id="progress" hidden>
+    <div class="bar" role="progressbar" aria-label="Merging" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="progressBar"></i></div>
+    <div class="ptext" id="progressText" aria-live="polite"></div>
+  </div>
+  <div class="alert ok" id="result" role="status" hidden></div>
+  <p class="note">The output is a merged <strong>working copy</strong>. Digital signatures, fillable forms, bookmarks and PDF/A conformance may not be preserved. Keep the original files for official records.</p>
+</main>
 
-    <section class="output-section">
-      <div id="progress" class="progress" hidden>
-        <div id="progressBar" class="bar"></div>
-        <span id="progressText" class="label">Merging…</span>
-      </div>
-      <div id="result" class="result"></div>
-    </section>
+<footer><div class="wrap">
+  <p>KDMS Lab · KM Unit. Internal utility; processing is local and no data is uploaded or stored.</p>
+  <p class="version">v2.1 · 16 Oct 2026 · PDF.js 6.4.299 · @cantoo/pdf-lib 2.11.1</p>
+</div></footer>
 
-    <footer class="app-footer">
-      <p>KDMS for ASEC • Runs in your browser</p>
-      <p class="small version">v2.0 · 16 Oct 2026 · PDF.js 6.4.299 · @cantoo/pdf-lib 2.11.1</p>
-      <p class="small notice">Note: the output is a merged <strong>working copy</strong>. Digital signatures, fillable forms, bookmarks and PDF/A conformance may not be preserved. Keep the original files for official records.</p>
-      <p class="small">Tip: For best performance, keep totals below ~100MB or ~500 pages (depends on the device).</p>
-    </footer>
-  </main>
-
-  <!-- Libraries bundled locally (no CDN) -->
-  <script src="vendor/pdf-lib.min.js?v=2.11.1"></script>
-  <script type="module" src="pdfjs-init.mjs?v=6.4.299"></script>
-  <script src="script.js?v=2.0.0"></script>
+<!-- Libraries bundled locally (no CDN) -->
+<script src="vendor/pdf-lib.min.js?v=2.11.1"></script>
+<script type="module" src="pdfjs-init.mjs?v=6.4.299"></script>
+<script src="script.js?v=2.1.0"></script>
 </body>
 </html>
