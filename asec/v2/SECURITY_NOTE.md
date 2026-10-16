@@ -94,3 +94,15 @@ Merging itself never executes PDF JavaScript: pdf-lib has no script engine, and 
 - The **2025 prototype** at https://jeenalomo.github.io/kdms-pdf-merger-client/ (repo JeenaLomo/kdms-pdf-merger-client) and the **15 Oct 2026 build** formerly at `/asec/` are **deprecated and must not be used**.
 - The 2025 prototype loads PDF.js 3.11.174 from cdnjs (affected by CVE-2024-4367) and an unpinned pdf-lib from unpkg. As of 16 Oct 2026 it is still online. It is in a separate GitHub account (JeenaLomo), not in lomony/kdms-lab, and has to be taken down or archived by that account's owner.
 - `/asec/` now redirects to `/asec/v2/`.
+
+## Frozen release v2.0.0
+| Item | Value |
+|---|---|
+| Git tag | `v2.0.0` |
+| Release commit | `09e31d298037de8f4bdc496cbe1eb73395bfdf8c` |
+| Release | https://github.com/lomony/kdms-lab/releases/tag/v2.0.0 |
+| Zip asset | `KDMS-PDF-Merger-ASEC-v2.0.zip` |
+| Zip SHA-256 | `584a40f51d11b427f7fb10c34ff8a0ed79568cc87d217d2c468a52af78572db5` |
+| Source | https://github.com/lomony/kdms-lab/tree/v2.0.0/asec/v2 |
+
+This section was added in a docs-only commit after the tag. A file cannot contain the checksum of the zip it is packed in, so the copy of this note inside the zip does not have it. ITSD should check the zip against `SHA256SUMS.txt` on the release page before deploying.
