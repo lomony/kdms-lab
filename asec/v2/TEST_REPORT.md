@@ -94,3 +94,5 @@ The UI was rebuilt in the "PDF Merge Tool" layout with KDMS Lab branding: a tric
 - 0 external requests and 0 CSP violations.
 
 Mobile layout: no horizontal overflow at 390 px (iPhone 14) or 412 px (Pixel 7) with files loaded and a merge completed.
+
+Live run of `run-all.sh` against https://lomony.github.io/kdms-lab/asec/v2/ after the v2.1.0 deploy: **36 runs, 0 failures**, with 0 external requests and 0 CSP violations. The DEMO banner was visible. Results are in `security/results/run-20261016-185205/`.
