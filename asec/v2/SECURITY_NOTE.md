@@ -108,3 +108,15 @@ Merging itself never executes PDF JavaScript: pdf-lib has no script engine, and 
 | Source | https://github.com/lomony/kdms-lab/tree/v2.0.0/asec/v2 |
 
 This section was added in a docs-only commit after the tag. A file cannot contain the checksum of the zip it is packed in, so the copy of this note inside the zip does not have it. ITSD should check the zip against `SHA256SUMS.txt` on the release page before deploying.
+
+## Frozen release v2.1.0 (current)
+| Item | Value |
+|---|---|
+| Git tag | `v2.1.0` |
+| Release commit | `58e39c9ab5d532dd7ba8b60715a2e7ade4dead0c` |
+| Release | https://github.com/lomony/kdms-lab/releases/tag/v2.1.0 |
+| Zip asset | `KDMS-PDF-Merger-ASEC-v2.1.zip` |
+| Zip SHA-256 | `e22e256cb212f25a823c00041f6dfc2a64bac1f687cb69f7f6f9dd6eac1473c9` |
+| Source | https://github.com/lomony/kdms-lab/tree/v2.1.0/asec/v2 |
+
+v2.0.0 (above) is superseded by v2.1.0. As before, this section was added after the tag, so ITSD should check the zip against `SHA256SUMS.txt` on the release page.
