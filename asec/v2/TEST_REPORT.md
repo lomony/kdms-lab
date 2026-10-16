@@ -1,4 +1,6 @@
-# KDMS PDF Merger (ASEC) – Test Report
+# KDMS PDF Merger (ASEC) v2.0 – Test Report
+
+Version 2.0, URL https://lomony.github.io/kdms-lab/asec/v2/.
 
 Date: 16 Oct 2026 (UTC+7). App build: PDF.js 6.4.299 (legacy build) + @cantoo/pdf-lib 2.11.1.
 Tester: KM Unit (automated, headless browsers on a Linux test machine via Playwright 1.64.1). Earlier manual UAT: 14–15 Oct 2026, KM Unit (Ayu – QA/QC, Erwin – UI/UX).
@@ -68,3 +70,6 @@ Tester: KM Unit (automated, headless browsers on a Linux test machine via Playwr
 - Password-protected or encrypted PDFs, including owner-password-only files, are rejected. The user has to save an unprotected copy first.
 - The output is a working copy. Digital signatures, fillable forms, bookmarks and PDF/A conformance may not be preserved.
 - Not tested: real Safari or iOS devices, Windows/macOS desktop builds of the browsers, or IIS itself (only the same headers were tested).
+
+## v2.0 release check (16 Oct 2026)
+The app moved to `/asec/v2/` and got a "Version 2.0" badge. The smoke merge (3 files, 6 pages, order checked) passed at `/asec/v2/` on Chromium, Firefox, WebKit, and Pixel 7 and iPhone 14 emulation: 0 external requests and 0 CSP violations. `/asec/` now redirects to `/asec/v2/` with a meta refresh and no script.

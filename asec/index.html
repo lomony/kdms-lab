@@ -1,68 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KDMS PDF Merger — ASEC</title>
-  <meta name="description" content="KDMS PDF Merger for ASEC. Merge PDF files entirely in the browser. 100% client‑side. No uploads." />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <meta http-equiv="refresh" content="0; url=v2/" />
+  <link rel="canonical" href="v2/" />
+  <title>KDMS PDF Merger — moved to v2.0</title>
+  <link rel="stylesheet" href="v2/style.css" />
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <div class="logo-wrap"><img src="assets/kdms-logo.png" alt="KDMS logo" class="logo" /></div>
-      <div class="brand-text">
-        <h1>KDMS PDF Merger <span class="badge">ASEC</span></h1>
-        <p>Merge PDF files <strong>100% client‑side</strong>  → your files never leave the browser.</p>
-      </div>
-    </div>
-  </header>
-
   <main class="container">
-    <section class="uploader">
-      <div class="dropzone" id="dropzone">
-        <input type="file" id="fileInput" accept="application/pdf" multiple hidden />
-        <div class="dropzone-inner">
-          <p class="dz-title">Drop PDF files here</p>
-          <p class="dz-sub">or</p>
-          <button id="browseBtn" type="button" class="btn primary">Choose files</button>
-          <p class="dz-hint">Multi‑file supported • Drag to reorder • First‑page thumbnail preview</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="filelist-section">
-      <div class="list-header">
-        <h2>Selected files</h2>
-        <div class="actions">
-          <button id="clearBtn" type="button" class="btn subtle" title="Clear file list">Clear</button>
-          <button id="mergeBtn" type="button" class="btn success" disabled>Merge PDFs</button>
-        </div>
-      </div>
-      <ul id="fileList" class="file-list" aria-live="polite"></ul>
-      <div id="limits" class="limits"></div>
-    </section>
-
-    <section class="output-section">
-      <div id="progress" class="progress" hidden>
-        <div id="progressBar" class="bar"></div>
-        <span id="progressText" class="label">Merging…</span>
-      </div>
-      <div id="result" class="result"></div>
-    </section>
-
-    <footer class="app-footer">
-      <p>KDMS for ASEC • Runs in your browser</p>
-      <p class="small notice">Note: the output is a merged <strong>working copy</strong>. Digital signatures, fillable forms, bookmarks and PDF/A conformance may not be preserved. Keep the original files for official records.</p>
-      <p class="small">Tip: For best performance, keep totals below ~100MB or ~500 pages (depends on the device).</p>
-    </footer>
+    <h1>KDMS PDF Merger has moved to Version 2.0</h1>
+    <p>Redirecting… If nothing happens, open <a href="v2/">KDMS PDF Merger v2.0</a>.</p>
   </main>
-
-  <!-- Libraries bundled locally (no CDN) -->
-  <script src="vendor/pdf-lib.min.js?v=2.11.1"></script>
-  <script type="module" src="pdfjs-init.mjs?v=6.4.299"></script>
-  <script src="script.js?v=2026.10.16"></script>
 </body>
 </html>

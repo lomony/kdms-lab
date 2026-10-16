@@ -1,4 +1,6 @@
-# KDMS PDF Merger (ASEC) – Maintenance
+# KDMS PDF Merger (ASEC) v2.0 – Maintenance
+
+When releasing a new version, bump the header badge, the footer version line and the `script.js?v=` parameter in `index.html`.
 
 ## Provenance
 The app was developed by the ASEC KM Unit with **AI-assisted coding**. All code was reviewed and tested by the KM Unit (UAT 14–15 Oct 2026; automated security and browser tests 16 Oct 2026, see `TEST_REPORT.md`). Third-party code is limited to two unmodified, pinned open-source libraries.

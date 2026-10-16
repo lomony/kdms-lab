@@ -1,11 +1,13 @@
-# KDMS PDF Merger (ASEC) – Security Note for ITSD
+# KDMS PDF Merger (ASEC) v2.0 – Security Note for ITSD
+
+Version 2.0 (16 Oct 2026), demo/test URL https://lomony.github.io/kdms-lab/asec/v2/. Changes from v1 (the 2025 prototype at jeenalomo.github.io/kdms-pdf-merger-client and the 15 Oct 2026 build at /asec/): no CDN, PDF.js 3.11.174 → 6.4.299, pdf-lib 1.17.1 → @cantoo/pdf-lib 2.11.1, CSP without unsafe-inline, input validation, page limit, PDF script stripping.
 
 _Updated 16 Oct 2026. Developed by the ASEC KM Unit with AI-assisted coding; reviewed and tested by the KM Unit (see TEST_REPORT.md, MAINTENANCE.md)._
 
 ## Architecture
 - A static HTML/CSS/JS app with no backend. PDFs are read and merged in browser memory and downloaded through a local `blob:` URL. Nothing is uploaded.
 - **No external internet dependency**, but it must be **served by a web server**, because ES modules are blocked on `file://`.
-- **GitHub Pages (lomony.github.io/kdms-lab/asec/) is a demo/test site for dummy data only.** Production must be hosted on ITSD-approved infrastructure, with access control decided by ITSD.
+- **GitHub Pages (lomony.github.io/kdms-lab/asec/v2/) is a demo/test site for dummy data only.** Production must be hosted on ITSD-approved infrastructure, with access control decided by ITSD.
 
 ## Content-Security-Policy
 - Meta tag in index.html: `default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'`.
@@ -33,8 +35,8 @@ These are byte-identical to the npm packages. The PDF.js main file and worker ar
 | vendor/pdf.worker.min.mjs | PDF.js worker (legacy build) | 6.4.299 | Apache-2.0 | 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 |
 | pdfjs-init.mjs | KM Unit loader | – | MIT | 898c0053e808770ab555ba0734a4329fb1ce5adf85feb9140ddc20f274f9ba28 |
 | script.js | KM Unit app code | – | MIT | 74c4ab8b0cbe36e0369b33e57ae0f9a31248370ea20a01ad199ea961adb4c88f |
-| style.css | KM Unit styles | – | MIT | 2516f94c180fb5455db4d870ccc8f6597d42459ac154ea8c37f1b0723c6582a3 |
-| index.html | KM Unit page | – | MIT | 36d28084cd44a37aadc172d264cdcf23c5f12741e595512baa5ba544256c3b09 |
+| style.css | KM Unit styles | – | MIT | 62134b77ce27c9c0297e68c26eb64d63b3a9b412c99f532777de0c268400e349 |
+| index.html | KM Unit page | – | MIT | 10ab81d9ba80607ceb1325fad1b470146deebb10689481e5c9d46bff38e388ae |
 
 ## Vulnerability scanning (16 Oct 2026; reports in `security/`)
 | Scanner | Scope | Result |

@@ -154,3 +154,7 @@ body{
 .progress.is-error .label{color:#b00020;white-space:normal}
 .file-warning{background:#fff3cd;color:#664d03;border:1px solid #ffecb5;border-radius:8px;padding:10px 14px;margin:0 0 12px}
 .notice{color:#555}
+
+/* v2.0 release badge */
+.badge-version{background:#fff;color:#0b3d91;border:1px solid rgba(11,61,145,.35);font-weight:600;letter-spacing:.02em}
+.version{color:#777;letter-spacing:.02em}
