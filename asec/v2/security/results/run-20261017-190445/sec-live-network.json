@@ -1,0 +1,42 @@
+[
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/",
+  "t": "document"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/style.css?v=2.1.2",
+  "t": "stylesheet"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/assets/kdms-lab-logo.svg",
+  "t": "image"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/vendor/pdf-lib.min.js?v=2.11.1",
+  "t": "script"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/pdfjs-init.mjs?v=2.1.2",
+  "t": "script"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/script.js?v=2.1.2",
+  "t": "script"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/vendor/pdf.min.mjs?v=6.4.299",
+  "t": "script"
+ },
+ {
+  "m": "GET",
+  "u": "https://lomony.github.io/kdms-lab/asec/v2/vendor/pdf.worker.min.mjs?v=6.4.299",
+  "t": "script"
+ }
+]

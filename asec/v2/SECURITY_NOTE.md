@@ -146,3 +146,16 @@ v2.0.0 (above) is superseded by v2.1.0. As before, this section was added after 
 | Source | https://github.com/lomony/kdms-lab/tree/v2.1.1/asec/v2 |
 
 v2.1.1 supersedes v2.1.0. Check the zip against `SHA256SUMS.txt` on the release page.
+
+## Frozen release v2.1.2 (current)
+| Item | Value |
+|---|---|
+| Git tag | `v2.1.2` |
+| Release commit | `5f70eb980fe29c49eade2fb95c2f4967cbe60a64` |
+| Release | https://github.com/lomony/kdms-lab/releases/tag/v2.1.2 |
+| Zip asset | `KDMS-PDF-Merger-ASEC-v2.1.2.zip` |
+| Zip SHA-256 | `e7e1ad7f3a349fb4f4d75bbfdc9589e366091ba159ba2c9bfc482203afff2157` |
+| SBOM asset | `sbom-v2.1.2.cdx.json` (SHA-256 `31ae979e9ada0076e218d59057f62223fe9e4f4ad3dcc5fe51bf270552ae9d94`) |
+| Source | https://github.com/lomony/kdms-lab/tree/v2.1.2/asec/v2 |
+
+v2.1.2 supersedes v2.1.1. This section was added after the tag; check the zip against `SHA256SUMS.txt` on the release page.
