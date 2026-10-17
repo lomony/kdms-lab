@@ -6,16 +6,16 @@
   <!-- Demo banner: auto = only on *.github.io; set "off" for the ITSD/IIS production build, "on" to force -->
   <meta name="kdms-demo-banner" content="auto" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PDF Merge Tool · KDMS Lab · v2.1</title>
+  <title>PDF Merge Tool · KDMS Lab · v2.1.1</title>
   <meta name="description" content="Merge PDF files entirely in the browser. 100% client-side. No uploads." />
-  <link rel="stylesheet" href="style.css?v=2.1.0" />
+  <link rel="stylesheet" href="style.css?v=2.1.1" integrity="sha384-R2OrlphWNAjSDzT1tkGevseD/aIhGzQirSk/QPiCGLLvQ/jJsXWqUAy+XlXDeQTG" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
 <body>
 <div class="brandbar" aria-hidden="true"></div>
 <header><div class="wrap hd">
-  <div class="mark"><img class="logo-lockup" src="assets/kdms-lab-logo.svg" alt="KDMS Lab" width="152" height="36" /><span class="brand"><span>· PDF Merge Tool</span></span> <span class="badge-version" title="Release v2.1.0, 16 Oct 2026">Version 2.1</span></div>
+  <div class="mark"><img class="logo-lockup" src="assets/kdms-lab-logo.svg" alt="KDMS Lab" width="152" height="36" /><span class="brand"><span>· PDF Merge Tool</span></span> <span class="badge-version" title="Release v2.1.1, 17 Oct 2026">Version 2.1</span></div>
   <div class="privacy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Files never leave your device</div>
 </div></header>
 
@@ -24,6 +24,7 @@
   <p class="lede">Combine several PDFs into one document, in the order you choose. Files never leave your device — everything runs in this browser.</p>
 
   <section class="uploader">
+    <p class="file-warning startup-warning" id="startupWarning" role="alert">The app has not started. It must be opened from a web server (e.g. the ASEC intranet link), not by double-clicking index.html, and its files must not be modified.</p>
     <div class="drop" id="dropzone">
       <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
       <p><strong>Drag PDF files here</strong></p>
@@ -57,12 +58,12 @@
 
 <footer><div class="wrap">
   <p>KDMS Lab · KM Unit. Internal utility; processing is local and no data is uploaded or stored.</p>
-  <p class="version">v2.1 · 16 Oct 2026 · PDF.js 6.4.299 · @cantoo/pdf-lib 2.11.1</p>
+  <p class="version">v2.1.1 · 17 Oct 2026 · PDF.js 6.4.299 · @cantoo/pdf-lib 2.11.1</p>
 </div></footer>
 
 <!-- Libraries bundled locally (no CDN) -->
-<script src="vendor/pdf-lib.min.js?v=2.11.1"></script>
-<script type="module" src="pdfjs-init.mjs?v=6.4.299"></script>
-<script src="script.js?v=2.1.0"></script>
+<script src="vendor/pdf-lib.min.js?v=2.11.1" integrity="sha384-BcRbGROz3cx4LSKcOw2L5YxAxiJPWIEmXRMrYbXu87aSiU5uMQ4qB9v8FEjrBhhq"></script>
+<script type="module" src="pdfjs-init.mjs?v=2.1.1" integrity="sha384-Cy0vfjxMN/dBb8TkP88KeHE3k1Q0HLfqA3Oc8YSffTkjNwZhjAhCnC9GWALVqb0D"></script>
+<script src="script.js?v=2.1.1" integrity="sha384-r+3ctRF/NpVdmQfvPaY42OnPLfsbS1baYjD6yT0ag8B1GwIFHjFXgsdbHV0tZIcP"></script>
 </body>
 </html>

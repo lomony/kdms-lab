@@ -30,3 +30,8 @@ The app was developed by the ASEC KM Unit with **AI-assisted coding**. All code 
   - **Tag protection** for `v*`.
   - Optionally, signed commits.
 - To turn off the demo banner in production, set `<meta name="kdms-demo-banner" content="off">` in index.html.
+
+## Subresource Integrity (since v2.1.1)
+After changing `style.css`, `script.js`, `pdfjs-init.mjs` or `vendor/pdf-lib.min.js`, recompute the `integrity` values in `index.html`:
+`for f in style.css vendor/pdf-lib.min.js pdfjs-init.mjs script.js; do echo "$f sha384-$(openssl dgst -sha384 -binary $f | base64 -w0)"; done`
+Then bump the `?v=` parameters. If a value is wrong, the browser refuses the file and the page shows "The app has not started".

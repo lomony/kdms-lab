@@ -93,3 +93,6 @@ footer .version{font-variant-numeric:tabular-nums}
 .mark .badge-version{margin-left:0}
 .logo-lockup{height:36px;width:auto;display:block}
 @media (max-width:560px){.logo-lockup{height:30px}}
+/* static startup warning: fades in only if script.js never removes it */
+.startup-warning{opacity:0;animation:kdms-show .2s ease-out 1.5s forwards}
+@keyframes kdms-show{to{opacity:1}}

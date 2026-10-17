@@ -1,4 +1,4 @@
-# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC edition) · v2.1 (16 Oct 2026)
+# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC edition) · v2.1.1 (17 Oct 2026)
 
 Demo/test URL: https://lomony.github.io/kdms-lab/asec/v2/ (the old `/asec/` link redirects here).
 
@@ -17,7 +17,7 @@ A small web app to merge PDF files **100% client‑side**. No server uploads; ev
 > The output is a merged **working copy**: digital signatures, fillable forms, bookmarks and PDF/A conformance may not be preserved.
 
 ## Running it
-The app has **no external internet dependency**, but it **must be served by a web server** (any static server: IIS, Apache, nginx; or `python3 -m http.server` for a local test). Opening `index.html` by double-click (`file://`) does **not** work, because browsers block ES modules (PDF.js 6) on `file://`; the page shows a warning in that case. No build step.
+The app has **no external internet dependency**, but it **must be served by a web server** (any static server: IIS, Apache, nginx; or `python3 -m http.server` for a local test). Opening `index.html` by double-click (`file://`) does **not** work (the page shows "The app has not started"), because browsers block ES modules (PDF.js 6) on `file://`; the page shows a warning in that case. No build step. Files must be served unchanged, because scripts and CSS are protected with Subresource Integrity.
 
 The GitHub Pages copy (https://lomony.github.io/kdms-lab/asec/v2/) is a **demo/test site for dummy data only**. Production must be hosted on ITSD-approved infrastructure, with access control decided by ITSD. See `web.config` for IIS and `SECURITY_NOTE.md` for the recommended headers.
 

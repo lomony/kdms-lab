@@ -9,6 +9,7 @@ cd "$HERE"
 npx playwright install chromium firefox webkit        # add: npx playwright install msedge (optional), --with-deps on a fresh Linux box
 python3 -m pip install -q -r requirements.txt 2>/dev/null || pip install -q --break-system-packages -r requirements.txt
 (cd "$FX" && python3 "$HERE/gen.py" && python3 "$HERE/gen_actions.py")
+export FU="${FU:-$FX/uat}"; mkdir -p "$FU"; (cd "$FU" && python3 "$HERE/gen_uat.py")
 URL="${1:-}"
 if [ -z "$URL" ]; then
   PORT=8821 SITE_ROOT="$ROOT" python3 "$HERE/hsrv.py" & SRV=$!; trap 'kill $SRV 2>/dev/null || true' EXIT; sleep 1
@@ -18,4 +19,5 @@ for BT in chromium firefox webkit; do BT=$BT node m.js "$(BT=$BT node cases.js "
 node m.js "$(node cases.js "$URL" xb)" "$OUT/cross-browser.json"
 node act.js "$URL" | tee "$OUT/actions-duplicates.txt"
 node dup.js "$URL" | tee "$OUT/dedupe-file-protocol.txt"
+node uat.js "$URL" "$OUT/uat-extra.json" | tee "$OUT/uat-extra.txt"
 echo "Results in $OUT"

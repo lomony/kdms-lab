@@ -96,3 +96,20 @@ The UI was rebuilt in the "PDF Merge Tool" layout with KDMS Lab branding: a tric
 Mobile layout: no horizontal overflow at 390 px (iPhone 14) or 412 px (Pixel 7) with files loaded and a merge completed.
 
 Live run of `run-all.sh` against https://lomony.github.io/kdms-lab/asec/v2/ after the v2.1.0 deploy: **36 runs, 0 failures**, with 0 external requests and 0 CSP violations. The DEMO banner was visible. Results are in `security/results/run-20261016-185205/`.
+
+## v2.1.1: UAT / IT-readiness pass (17 Oct 2026)
+`run-all.sh` now also runs `uat.js`: functional, XSS file names, storage and telemetry, decompression bomb, offline, redirect, banner, `file://`, response headers, vendor-vs-npm hashes, `eval`, an SRI tamper test, keyboard-only use and an axe-core 4.14.0 scan. The full report is `KDMS-PDF-Merger-v2.1-UAT-Test-Report.docx`.
+
+**Defects found and fixed in v2.1.1**
+- **D-01:** previews failed if the network dropped after the page loaded. The PDF.js worker is now started at page load.
+- **D-02:** adding SRI broke the `file://` warning, because the browser blocks the script there. It is replaced by a static "app has not started" warning that the script removes once it runs.
+
+**Hardening:** Subresource Integrity on all page scripts and CSS.
+
+**Local results (v2.1.1):**
+- 36 matrix runs: 0 failures.
+- 28 extra UAT checks: all pass. Results are in `security/results/run-20261017-170245/`.
+- Test-harness fixes:
+  - The `act.js` output path was corrected.
+  - The O-04 banner check now expects the banner to be hidden on hosts that are not github.io; it was rerun after this fix.
+  - WebKit system libraries had to be installed on the new test box (`npx playwright install-deps`).

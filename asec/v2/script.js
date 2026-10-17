@@ -84,7 +84,9 @@ async function handleFiles(selected){
   files = all;
   fileInput.value = '';
   showErr(rejected, rejected.length === 1 ? '1 file was not added' : `${rejected.length} files were not added`);
-  renderList();
+  // App started: remove the static "not started" warning (shown only if this script never runs, e.g. file:// or a failed integrity check).
+document.getElementById('startupWarning')?.remove();
+renderList();
   if(notices.length) limitsEl.textContent += (limitsEl.textContent ? ' — ' : '') + notices.join(' ');
 }
 
@@ -140,7 +142,9 @@ fileListEl.addEventListener('click', (e) => {
   if(act === 'remove') files.splice(idx, 1);
   else if(act === 'up' && idx > 0) [files[idx-1], files[idx]] = [files[idx], files[idx-1]];
   else if(act === 'down' && idx < files.length-1) [files[idx+1], files[idx]] = [files[idx], files[idx+1]];
-  renderList();
+  // App started: remove the static "not started" warning (shown only if this script never runs, e.g. file:// or a failed integrity check).
+document.getElementById('startupWarning')?.remove();
+renderList();
 });
 fileListEl.addEventListener('dragstart', e => { const li = e.target.closest('li'); if(!li) return; dragId = li.dataset.id; li.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain','x'); });
 fileListEl.addEventListener('dragend', () => { dragId = null; renderList(); });
@@ -150,7 +154,9 @@ fileListEl.addEventListener('drop', e => {
   const li = e.target.closest('li'); if(!li) return;
   const i = files.findIndex(f => f.id === dragId), j = files.findIndex(f => f.id === li.dataset.id);
   dragId = null; if(i < 0 || j < 0) return;
-  const [x] = files.splice(i, 1); files.splice(j, 0, x); renderList();
+  const [x] = files.splice(i, 1); files.splice(j, 0, x); // App started: remove the static "not started" warning (shown only if this script never runs, e.g. file:// or a failed integrity check).
+document.getElementById('startupWarning')?.remove();
+renderList();
 });
 
 async function renderThumbnail(item, container, subEl){
@@ -345,4 +351,6 @@ if(location.protocol === 'file:'){
   document.querySelector('.uploader').prepend(warn);
 }
 
+// App started: remove the static "not started" warning (shown only if this script never runs, e.g. file:// or a failed integrity check).
+document.getElementById('startupWarning')?.remove();
 renderList();

@@ -1,0 +1,2 @@
+same name+size, different content -> 2 cards; re-adding identical file -> 3 cards; notice: 1 file(s) are identical copies of files already in the list and are marked "Duplicate": same.pdf. Remove them if you do not want them twice.
+file:// pdfjs loaded: undefined errors: Subresource Integrity: The resource 'file:///workspace/kdms-lab/asec/v2/style.css?v=2.1.1' has an integrity attribute, but the resource requires the request to be CORS enabled to check the integrity, and it is not. The resource has been blocked because the integrity cannot be enforced. | Subresource

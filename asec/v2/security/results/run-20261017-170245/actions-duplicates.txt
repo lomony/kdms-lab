@@ -1,0 +1,5 @@
+input : [["/Link:/URI","/Link:/GoToR","/Link:/Launch","/Link:/GoTo+Next","/Link:/GoTo","/Widget:none+AA"],[]]
+output: [["/Link:none","/Link:none","/Link:none","/Link:none","/Link:/GoTo","/Widget:none"],[]] dialogs []
+dup: cards 2 tags [ 'Duplicate (identical content)' ] | 1 file(s) are identical copies of files already in the list and are marked "Duplicate": base.pdf. Remove them if you do not want them twice.
+after remove cards 1
+banner on localhost: false

@@ -1,4 +1,11 @@
-# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC) v2.1 – Security Note for ITSD
+# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC) v2.1.1 – Security Note for ITSD
+
+**v2.1.1 (17 Oct 2026)** is a patch release from the UAT / IT-readiness pass. It makes three changes:
+- **Subresource Integrity:** `integrity="sha384-…"` is now on `style.css`, `vendor/pdf-lib.min.js`, `pdfjs-init.mjs` and `script.js`. A modified file is refused by the browser, and this was tested. **The web server must serve the files byte-for-byte (no minifying, no injected code), or the page will not start.**
+- **Worker preload:** the PDF.js worker now starts at page load. Previously, previews failed if the network dropped after the page loaded (defect D-01).
+- **Startup warning:** a static warning is shown if the app's script never starts, for example on `file://` or after an integrity failure.
+
+**Response headers:** GitHub Pages sends no security headers and none can be set (only `cache-control: max-age=600` and `access-control-allow-origin: *`). The CSP is applied through the `<meta>` tag. On IIS, `web.config` adds all recommended headers.
 
 v2.1.0 (16 Oct 2026) is a UI re-skin with KDMS Lab branding. Errors are shown inline, with no `alert()`, and the security behaviour is unchanged from v2.0.0. The new SVG logo files are static and contain no scripts. They load as `<img>`, which is allowed by `img-src 'self'`.
 
@@ -35,10 +42,10 @@ These are byte-identical to the npm packages. The PDF.js main file and worker ar
 | vendor/pdf-lib.min.js | @cantoo/pdf-lib (maintained fork of pdf-lib) | 2.11.1 | MIT | 2294a0bb8742d8948ae2d49a60cb6a3600c0b5deae6de198e57fb368d1b79ba9 |
 | vendor/pdf.min.mjs | PDF.js (pdfjs-dist, legacy build) | 6.4.299 | Apache-2.0 | bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 |
 | vendor/pdf.worker.min.mjs | PDF.js worker (legacy build) | 6.4.299 | Apache-2.0 | 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 |
-| pdfjs-init.mjs | KM Unit loader | – | MIT | 898c0053e808770ab555ba0734a4329fb1ce5adf85feb9140ddc20f274f9ba28 |
-| script.js | KM Unit app code | – | MIT | b375623ad9badf48822ae28a2588674f7e754c60e4625577b002576dfe0871d8 |
-| style.css | KM Unit styles | – | MIT | d086106a751942be5e2eacb74ccdd7290dac50c11c9340a176d2f037910fb494 |
-| index.html | KM Unit page | – | MIT | 85dc44389f496733f8229eeaa85c800ffb021a033cf1f1bfed2888de744fe9d0 |
+| pdfjs-init.mjs | KM Unit loader | – | MIT | ffbd7c0e05da45b0f9f87ab251a0743c583e91631a2d00c7c2209e40e7df5dc8 |
+| script.js | KM Unit app code | – | MIT | c7f726bbdcc8db0105b8c32731cec6b1e079815d76123538fc3475c838446284 |
+| style.css | KM Unit styles | – | MIT | e836a41301299e0911e1793b3b37181b7b70019446bf2e8555d1f6ea673378ff |
+| index.html | KM Unit page | – | MIT | 22dd65bfab27c040d116019bcca91b4be4effe02145f12db650ef7e88ac22ef9 |
 
 ## Vulnerability scanning (16 Oct 2026; reports in `security/`)
 | Scanner | Scope | Result |
