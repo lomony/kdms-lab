@@ -127,3 +127,15 @@ This section was added in a docs-only commit after the tag. A file cannot contai
 | Source | https://github.com/lomony/kdms-lab/tree/v2.1.0/asec/v2 |
 
 v2.0.0 (above) is superseded by v2.1.0. As before, this section was added after the tag, so ITSD should check the zip against `SHA256SUMS.txt` on the release page.
+
+## Frozen release v2.1.1 (current)
+| Item | Value |
+|---|---|
+| Git tag | `v2.1.1` |
+| Release commit | `d04b380b171ed723024689e8711965113ff731f1` |
+| Release | https://github.com/lomony/kdms-lab/releases/tag/v2.1.1 |
+| Zip asset | `KDMS-PDF-Merger-ASEC-v2.1.1.zip` |
+| Zip SHA-256 | `576d19b264e67ea0ba25bb1b3df5f3bc6ac20d602191fc68065ed6d83bb9e168` |
+| Source | https://github.com/lomony/kdms-lab/tree/v2.1.1/asec/v2 |
+
+v2.1.1 supersedes v2.1.0. Check the zip against `SHA256SUMS.txt` on the release page.

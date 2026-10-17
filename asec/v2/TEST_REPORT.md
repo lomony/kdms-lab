@@ -113,3 +113,5 @@ Live run of `run-all.sh` against https://lomony.github.io/kdms-lab/asec/v2/ afte
   - The `act.js` output path was corrected.
   - The O-04 banner check now expects the banner to be hidden on hosts that are not github.io; it was rerun after this fix.
   - WebKit system libraries had to be installed on the new test box (`npx playwright install-deps`).
+
+**Live (v2.1.1, https://lomony.github.io/kdms-lab/asec/v2/):** 36 matrix runs with 0 failures, and all 29 extra UAT checks passed. Results are in `security/results/run-20261017-170942/`.
