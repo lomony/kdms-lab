@@ -1,0 +1,15 @@
+env:
+  contexts:
+    - name: kdms
+      urls: ["http://localhost:8831/asec/v2/"]
+      includePaths: ["http://localhost:8831/asec/v2/.*"]
+  parameters: {failOnError: true, progressToStdout: true}
+jobs:
+  - type: spider
+    parameters: {context: kdms, maxDuration: 2}
+  - type: passiveScan-wait
+    parameters: {maxDuration: 5}
+  - type: report
+    parameters: {template: traditional-json, reportDir: /workspace/kdms-lab/asec/v2/security/results/run-20261017-190445, reportFile: zap-baseline}
+  - type: report
+    parameters: {template: traditional-html, reportDir: /workspace/kdms-lab/asec/v2/security/results/run-20261017-190445, reportFile: zap-baseline}

@@ -1,4 +1,4 @@
-# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC edition) · v2.1.1 (17 Oct 2026)
+# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC edition) · v2.1.2 (17 Oct 2026)
 
 Demo/test URL: https://lomony.github.io/kdms-lab/asec/v2/ (the old `/asec/` link redirects here).
 

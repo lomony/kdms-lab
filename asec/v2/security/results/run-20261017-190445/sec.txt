@@ -1,0 +1,10 @@
+SEC-01 PASS - load requests=8 (all same-origin GET); requests during add+merge+download (excl. blob:)=0; external=0; non-GET=0
+SEC-02 PASS - {"cookie":0,"ls":0,"ss":0,"idb":0,"sw":0}
+SEC-03 PASS - telemetry requests=0
+SEC-04 PASS - shown=["\"><svg onload=alert(2)>&amp;.pdf","'-alert(3)-'<script>alert(4)<\\script>.pdf","<img src=x onerror=alert(1)>.pdf"]; injected={"img":0,"svg":0,"script":0,"pwn":false}; dialogs=0
+SEC-05 PASS - metadata text rendered on page=false; dialogs=0; window.__PWN=false; output Title="" (inert string in PDF)
+SEC-06 PASS - inline ran=false; onerror ran=false; violations=8; unsafe-inline/eval in header=false
+SEC-07 PASS - jQuery loaded=false; fetch=blocked; CSP log: CSP-VIOLATION script-src-elem inline | CSP-VIOLATION script-src-elem inline | CSP-VIOLATION script-src-elem https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js | CSP-VIOLATION script-src-elem https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js | CSP-VIOLATION script-src-attr inline
+SEC-08 PASS - PDF.js 6.4.299; payload ran=false; dialogs=0
+SEC-09 PASS - dialogs=0; output contains: {"js":false,"launch":false,"embedded":false,"openAction":false,"names":false}
+SEC-10 PASS - frame url=chrome-error://chromewebdata/; app rendered in frame=false

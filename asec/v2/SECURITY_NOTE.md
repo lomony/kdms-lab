@@ -1,4 +1,11 @@
-# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC) v2.1.1 – Security Note for ITSD
+# KDMS Lab · PDF Merge Tool (KDMS PDF Merger, ASEC) v2.1.2 – Security Note for ITSD
+
+**v2.1.2 (17 Oct 2026)** is a patch release from an external review of the ITSD package:
+- **Image codecs:** PDF.js now gets `wasmUrl: vendor/wasm/` and `useWasm: false`, and the pure-JavaScript JBIG2/OpenJPEG decoders (`jbig2_nowasm_fallback.js`, `openjpeg_nowasm_fallback.js`, from pdfjs-dist 6.4.299, with licences) are bundled in `vendor/wasm/`. Previews of PDFs with CCITT G4 / JBIG2 / JPEG2000 images now render with no CSP change (no `wasm-unsafe-eval`) and 0 CSP violations (tested in Chromium, Firefox and WebKit).
+- **UI note:** the page now says that external web links and other link actions are removed from the merged output (internal page links are kept).
+- **Docs:** HSTS below matches `web.config` (no `includeSubDomains`); the root README no longer suggests opening `index.html` from disk, and `streamlit_app.py` is marked legacy.
+- **SRI scope:** `integrity` covers 4 files (`style.css`, `vendor/pdf-lib.min.js`, `pdfjs-init.mjs`, `script.js`). `vendor/pdf.min.mjs`, `vendor/pdf.worker.min.mjs` and `vendor/wasm/*.js` are loaded by module import/worker and are controlled by the release checksum (`SHA256SUMS.txt`) and the vendor-vs-npm hash comparison.
+
 
 **v2.1.1 (17 Oct 2026)** is a patch release from the UAT / IT-readiness pass. It makes three changes:
 - **Subresource Integrity:** `integrity="sha384-…"` is now on `style.css`, `vendor/pdf-lib.min.js`, `pdfjs-init.mjs` and `script.js`. A modified file is refused by the browser, and this was tested. **The web server must serve the files byte-for-byte (no minifying, no injected code), or the page will not start.**
@@ -29,7 +36,7 @@ _Updated 16 Oct 2026. Developed by the ASEC KM Unit with AI-assisted coding; rev
 | X-Content-Type-Options | nosniff |
 | X-Frame-Options | SAMEORIGIN |
 | Referrer-Policy | no-referrer |
-| Strict-Transport-Security | max-age=31536000; includeSubDomains (HTTPS only) |
+| Strict-Transport-Security | max-age=31536000 (HTTPS only; no includeSubDomains – ITSD decides whether to add it for the real domain) |
 | Permissions-Policy | camera=(), microphone=(), geolocation=(), payment=() |
 | Cross-Origin-Opener-Policy | same-origin |
 | MIME | `.mjs` → `text/javascript` (required) |
@@ -51,7 +58,7 @@ These are byte-identical to the npm packages. The PDF.js main file and worker ar
 | Scanner | Scope | Result |
 |---|---|---|
 | npm audit (npm 9.2.0) | security/package-lock.json, pinned versions, 19 packages incl. optional Node-only deps | **0 vulnerabilities** |
-| osv-scanner 2.7.0 | same lockfile | **0 vulnerabilities** |
+| osv-scanner 2.2.3 | same lockfile | **0 vulnerabilities** |
 | retire.js 6.1.0 | vendor/ (the shipped files) | **0 findings**. Control run on the old 3.11.174 files correctly flagged CVE-2024-4367 (security/retire-baseline-old-3.11.174.json). |
 | GitHub Advisory DB | pdfjs-dist | CVE-2024-4367 (≤ 4.1.392) and CVE-2026-16633 / GHSA-hq66-cqwq-w95j (≥ 5.6.83, < 6.2.108). **6.4.299 is not affected by either.** |
 | GitHub Advisory DB | @cantoo/pdf-lib, pdf-lib | no advisories |
@@ -128,7 +135,7 @@ This section was added in a docs-only commit after the tag. A file cannot contai
 
 v2.0.0 (above) is superseded by v2.1.0. As before, this section was added after the tag, so ITSD should check the zip against `SHA256SUMS.txt` on the release page.
 
-## Frozen release v2.1.1 (current)
+## Frozen release v2.1.1 (superseded by v2.1.2)
 | Item | Value |
 |---|---|
 | Git tag | `v2.1.1` |

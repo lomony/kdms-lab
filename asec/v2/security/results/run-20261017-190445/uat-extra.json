@@ -1,0 +1,243 @@
+{
+ "browser": "chromium 156.0.8078.4",
+ "url": "http://localhost:8821/asec/v2/",
+ "date": "2026-10-17T12:09:19.978Z",
+ "results": [
+  {
+   "id": "F-01",
+   "area": "Functional",
+   "steps": "Choose 3 PDFs",
+   "expected": "3 rows; count shows files, pages, size",
+   "actual": "3 rows; \"3 files · 3 pages · 3.89 KB\"",
+   "result": "PASS"
+  },
+  {
+   "id": "F-02",
+   "area": "Functional",
+   "steps": "Click ↓ on row 1",
+   "expected": "Order r2, r1, r3",
+   "actual": "r2.pdf, r1.pdf, r3.pdf",
+   "result": "PASS"
+  },
+  {
+   "id": "F-03",
+   "area": "Functional",
+   "steps": "Click ↑ on row 3",
+   "expected": "Order r2, r3, r1",
+   "actual": "r2.pdf, r3.pdf, r1.pdf",
+   "result": "PASS"
+  },
+  {
+   "id": "F-04",
+   "area": "Functional",
+   "steps": "Inspect first/last row buttons",
+   "expected": "↑ disabled on first row, ↓ disabled on last row",
+   "actual": "first ↑ disabled=true, last ↓ disabled=true",
+   "result": "PASS"
+  },
+  {
+   "id": "F-05",
+   "area": "Functional",
+   "steps": "Type output name with illegal characters, merge, download",
+   "expected": "Illegal characters replaced; .pdf added once",
+   "actual": "downloaded as \"Report- Q3-final-.pdf\"",
+   "result": "PASS"
+  },
+  {
+   "id": "F-06",
+   "area": "Functional",
+   "steps": "Check merged page order after reordering",
+   "expected": "Pages in on-screen order (r2, r3, r1 → widths 320, 330, 310)",
+   "actual": "[320,330,310]",
+   "result": "PASS"
+  },
+  {
+   "id": "F-07",
+   "area": "Functional",
+   "steps": "Clear output name, merge again",
+   "expected": "Default name ASEC-merged-YYYYMMDD-HHMM.pdf",
+   "actual": "ASEC-merged-20261017-1908.pdf",
+   "result": "PASS"
+  },
+  {
+   "id": "F-08",
+   "area": "Functional",
+   "steps": "Click ✕ on row 2",
+   "expected": "Row removed; result cleared",
+   "actual": "r2.pdf, r1.pdf; result hidden=true",
+   "result": "PASS"
+  },
+  {
+   "id": "F-09",
+   "area": "Functional",
+   "steps": "Click \"Clear all\"",
+   "expected": "List empty; empty-state text shown; buttons disabled",
+   "actual": "rows=0, empty visible=true, merge disabled=true",
+   "result": "PASS"
+  },
+  {
+   "id": "F-10",
+   "area": "Functional",
+   "steps": "Drag row 3 onto row 1 (mouse drag & drop)",
+   "expected": "r3 moves to the top",
+   "actual": "r3.pdf, r1.pdf, r2.pdf",
+   "result": "PASS"
+  },
+  {
+   "id": "F-11",
+   "area": "Functional",
+   "steps": "Choose a .txt file",
+   "expected": "Not added; inline message",
+   "actual": "1 file was not addednotes.txt: not a PDF. Only .pdf files can be merged.",
+   "result": "PASS"
+  },
+  {
+   "id": "S-01",
+   "area": "Security",
+   "steps": "Functional session above",
+   "expected": "0 external requests, 0 CSP violations, no dialogs",
+   "actual": "ext=0, csp=0, dialogs=0",
+   "result": "PASS"
+  },
+  {
+   "id": "S-02",
+   "area": "Security",
+   "steps": "Inspect storage after a full session",
+   "expected": "No cookies, localStorage, sessionStorage, IndexedDB or service worker",
+   "actual": "cookies=0, localStorage=0, sessionStorage=0, IndexedDB=0, SW=0",
+   "result": "PASS"
+  },
+  {
+   "id": "S-03",
+   "area": "Security",
+   "steps": "Add files named <img src=x onerror=alert(1)>.pdf and \"><svg onload=alert(2)>&amp;.pdf, then merge",
+   "expected": "Names shown as literal text; no element injected; no script runs",
+   "actual": "dialogs=0, injected img=0, svg=0, shown: <img src=x onerror=alert(1)>.pdf | \"><svg onload=alert(2)>&amp;.pdf",
+   "result": "PASS"
+  },
+  {
+   "id": "S-04",
+   "area": "Security/robustness",
+   "steps": "Add a 0.4 MB PDF whose content stream inflates to 400 MB, plus a normal PDF; merge",
+   "expected": "No crash or hang; merge completes or a clear error",
+   "actual": "thumbnails settled in 2182 ms; merge 75 ms; status \"Done ✅ 4 pages • 400.13 KB\"; page responsive=true",
+   "result": "PASS"
+  },
+  {
+   "id": "O-01",
+   "area": "Offline",
+   "steps": "Load the page, go offline, then add 2 files and merge",
+   "expected": "Thumbnails and merge work without a network",
+   "actual": "thumbnails=2/2, merge ok=true",
+   "result": "PASS"
+  },
+  {
+   "id": "O-02",
+   "area": "Offline",
+   "steps": "Reload the page while offline",
+   "expected": "(Informational) No service worker, so a reload needs the server",
+   "actual": "failed: page.reload: net::ERR_INTERNET_DISCONNECTED",
+   "result": "PASS"
+  },
+  {
+   "id": "O-03",
+   "area": "Navigation",
+   "steps": "Open the old /asec/ link",
+   "expected": "Redirects to /asec/v2/ (meta refresh, no script)",
+   "actual": "http://localhost:8821/asec/v2/",
+   "result": "PASS"
+  },
+  {
+   "id": "O-04",
+   "area": "Banner",
+   "steps": "Open with default setting (auto) on localhost",
+   "expected": "Banner hidden (not github.io)",
+   "actual": "visible=false",
+   "result": "PASS"
+  },
+  {
+   "id": "O-05",
+   "area": "Banner",
+   "steps": "Serve index.html with <meta name=\"kdms-demo-banner\" content=\"off\">",
+   "expected": "Banner hidden (production setting)",
+   "actual": "visible=false",
+   "result": "PASS"
+  },
+  {
+   "id": "O-06",
+   "area": "file://",
+   "steps": "Open index.html by double-click (file://)",
+   "expected": "Warning shown that a web server is needed",
+   "actual": "The app has not started. It must be opened from a web server (e.g. the ASEC intranet link), not by double-clicking index.html, and its files must not be modified.",
+   "result": "PASS"
+  },
+  {
+   "id": "S-05",
+   "area": "Security headers",
+   "steps": "GET http://localhost:8821/asec/v2/ and list response headers",
+   "expected": "(Informational) GitHub Pages cannot set custom headers; CSP comes from the <meta> tag. web.config supplies all 7 headers on IIS",
+   "actual": "present: content-security-policy, x-content-type-options, x-frame-options, referrer-policy, permissions-policy, cross-origin-opener-policy; cache-control: null; server: SimpleHTTP/0.6 Python/3.13.5",
+   "result": "PASS"
+  },
+  {
+   "id": "S-06",
+   "area": "Security headers",
+   "steps": "GET pdfjs-init.mjs",
+   "expected": "Served as JavaScript (module MIME type)",
+   "actual": "text/javascript",
+   "result": "PASS"
+  },
+  {
+   "id": "S-07",
+   "area": "Supply chain",
+   "steps": "SHA-256 of served vendor files vs the files in the official npm tarballs (pdfjs-dist 6.4.299 legacy/build, @cantoo/pdf-lib 2.11.1 dist)",
+   "expected": "Byte-identical",
+   "actual": "pdf.min.mjs match; pdf.worker.min.mjs match; pdf-lib.min.js match",
+   "result": "PASS"
+  },
+  {
+   "id": "S-08",
+   "area": "Security",
+   "steps": "Search all shipped JS for eval(",
+   "expected": "No eval( in shipped code; CSP has no unsafe-eval",
+   "actual": "eval( occurrences: 0",
+   "result": "PASS"
+  },
+  {
+   "id": "S-09",
+   "area": "Supply chain",
+   "steps": "Serve a modified script.js (one extra line) to the page",
+   "expected": "Browser refuses to run it (Subresource Integrity)",
+   "actual": "tampered code ran=false; integrity errors in console=1",
+   "result": "PASS"
+  },
+  {
+   "id": "A-01",
+   "area": "Accessibility",
+   "steps": "Keyboard only: Tab to \"Choose PDF files\" + Enter, pick 2 files, Tab to ↓ + Enter, Tab to Merge + Enter",
+   "expected": "The whole flow works without a mouse; focus is visible",
+   "actual": "Tab→browseBtn, Tab→↓ (focus outline solid), Tab→mergeBtn; file chooser opened=true; order after ↓: r2.pdf, r1.pdf; result=true",
+   "result": "PASS"
+  },
+  {
+   "id": "A-02-empty",
+   "area": "Accessibility",
+   "steps": "axe-core 4.14.0 scan (WCAG 2.1 A/AA + best practice), state: empty",
+   "expected": "No critical/serious violations",
+   "actual": "0 violations",
+   "result": "PASS"
+  },
+  {
+   "id": "A-02-merged",
+   "area": "Accessibility",
+   "steps": "axe-core 4.14.0 scan (WCAG 2.1 A/AA + best practice), state: merged",
+   "expected": "No critical/serious violations",
+   "actual": "0 violations",
+   "result": "PASS"
+  }
+ ],
+ "axe": {
+  "empty": [],
+  "merged": []
+ }
+}

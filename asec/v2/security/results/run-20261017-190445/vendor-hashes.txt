@@ -1,0 +1,5 @@
+vendor/pdf.min.mjs bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 | npm pdfjs-dist@6.4.299 legacy/build/pdf.min.mjs bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 | MATCH
+vendor/pdf.worker.min.mjs 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 | npm pdfjs-dist@6.4.299 legacy/build/pdf.worker.min.mjs 145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 | MATCH
+vendor/wasm/jbig2_nowasm_fallback.js 68686ced624a48c42f84cdaa482ec44b72b0de4dc84a0df903af1fb7b45b5d9a | npm pdfjs-dist@6.4.299 wasm/jbig2_nowasm_fallback.js 68686ced624a48c42f84cdaa482ec44b72b0de4dc84a0df903af1fb7b45b5d9a | MATCH
+vendor/wasm/openjpeg_nowasm_fallback.js 9047b34b6bc142d85e4b0aa1b08b0b9baad4c6f8b7ac87641b9e8f90eb6fd23e | npm pdfjs-dist@6.4.299 wasm/openjpeg_nowasm_fallback.js 9047b34b6bc142d85e4b0aa1b08b0b9baad4c6f8b7ac87641b9e8f90eb6fd23e | MATCH
+vendor/pdf-lib.min.js 2294a0bb8742d8948ae2d49a60cb6a3600c0b5deae6de198e57fb368d1b79ba9 | npm @cantoo/pdf-lib@2.11.1 dist/pdf-lib.min.js 2294a0bb8742d8948ae2d49a60cb6a3600c0b5deae6de198e57fb368d1b79ba9 | MATCH

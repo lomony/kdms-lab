@@ -17,12 +17,18 @@ The script installs the packages, generates the synthetic fixtures in `tests/.fi
 - `act.js`: action removal (`/URI`, `/GoToR`, `/Launch`, nested `/Next` JavaScript, field-parent `/AA`; internal `/GoTo` must be kept) and duplicate tagging.
 - `dup.js`: same name and size with different content, and `file://` behaviour.
 
+- `codecs.js` (+ `gen_codecs.py`): CCITT G4 / JPEG2000 previews with the bundled no-WASM decoders, CSP violations counted.
+- `sec.js` (+ `gen_secfx.py`, `cve_poc.py`): security controls SEC-01–SEC-10 (network capture, storage, telemetry, XSS in names/metadata, CSP, CVE-2024-4367 PoC, JS/Launch/embedded file, framing when `FRAMER=<url of a page on another origin that iframes the app>` is set).
+- `limit50.js`: 51 files → 50 added.
+- `webconfig-https-server.py`: serves the repo over HTTPS with the exact headers from `web.config` (self-signed `c.pem`/`k.pem` in the working directory) to check HSTS.
+- `zap-baseline-plan.yaml`: OWASP ZAP 2.17.0 automation plan (spider + passive scan).
+
 Results are written as JSON/TXT to `results/run-<timestamp>/`.
 
 ## Security scans (from `asec/v2/security/`)
 ```bash
 npm install --package-lock-only --ignore-scripts && npm audit --json > npm-audit.json
-osv-scanner scan source --lockfile package-lock.json --format json > osv-scanner.json   # osv-scanner 2.7.0
+osv-scanner scan source --lockfile package-lock.json --format json > osv-scanner.json   # osv-scanner 2.2.3
 npx retire@6.1.0 --path ../vendor --outputformat json --outputpath retire.json
 npx @cyclonedx/cyclonedx-npm@6.0.1 --package-lock-only --output-format JSON --output-file sbom.json
 ```

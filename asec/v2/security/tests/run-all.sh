@@ -20,4 +20,10 @@ node m.js "$(node cases.js "$URL" xb)" "$OUT/cross-browser.json"
 node act.js "$URL" | tee "$OUT/actions-duplicates.txt"
 node dup.js "$URL" | tee "$OUT/dedupe-file-protocol.txt"
 node uat.js "$URL" "$OUT/uat-extra.json" | tee "$OUT/uat-extra.txt"
+python3 "$HERE/gen_codecs.py" "$FX/codecs" >/dev/null
+node codecs.js "$URL" "$FX/codecs" "$OUT/codecs.json" | tee "$OUT/codecs.txt"
+python3 "$HERE/gen_secfx.py" "$FX/sec" >/dev/null
+node sec.js "$URL" "$OUT/sec.json" "$FX/sec" ${FRAMER:-} | tee "$OUT/sec.txt"
+mkdir -p "$FX/f51"; for i in $(seq -w 1 51); do { cat "$FX/sec/a.pdf"; printf "%s" "$i"; } > "$FX/f51/f$i.pdf"; done
+node limit50.js "$URL" "$FX/f51" | tee "$OUT/limit50.txt"
 echo "Results in $OUT"

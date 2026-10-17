@@ -1,3 +1,4 @@
+# LEGACY / NOT MAINTAINED: wraps the old asec/ v1 build. Not part of the KDMS PDF Merger v2 release reviewed by ITSD. Do not use for v2.
 """Streamlit Community Cloud entry point for the KDMS PDF Merger (ASEC edition).
 
 The merger runs entirely in the viewer's browser: this script only inlines the

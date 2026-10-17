@@ -1,0 +1,3 @@
+pdf.min.mjs vendor=bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 npm(pdfjs-dist@6.4.299 legacy/build)=bccc24ea711db8e44503629519904a5292d73b9daaa214bbe7cdcc282b0f4259 MATCH
+pdf.worker.min.mjs vendor=145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 npm(pdfjs-dist@6.4.299 legacy/build)=145d2dd3ab0c86151011dba95acfa2d5336e2accd59388ea43dbee0efddaaec6 MATCH
+pdf-lib.min.js vendor=2294a0bb8742d8948ae2d49a60cb6a3600c0b5deae6de198e57fb368d1b79ba9 npm(@cantoo/pdf-lib@2.11.1 dist)=2294a0bb8742d8948ae2d49a60cb6a3600c0b5deae6de198e57fb368d1b79ba9 MATCH

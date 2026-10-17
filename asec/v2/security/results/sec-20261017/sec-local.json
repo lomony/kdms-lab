@@ -1,0 +1,96 @@
+{
+ "url": "http://localhost:8831/asec/v2/",
+ "date": "2026-10-17T10:25:00.354Z",
+ "results": [
+  {
+   "id": "SEC-01",
+   "control": "No outbound / upload during merge (network capture)",
+   "method": "Record every request from page load through merge and download",
+   "expected": "Only same-origin GETs for static files at load; 0 requests during merge; 0 POST/PUT",
+   "actual": "load requests=8 (all same-origin GET); requests during add+merge+download (excl. blob:)=0; external=0; non-GET=0",
+   "result": "PASS",
+   "evidence": "network.json"
+  },
+  {
+   "id": "SEC-02",
+   "control": "No client storage / cookies",
+   "method": "Inspect document.cookie, localStorage, sessionStorage, IndexedDB, service workers after a merge",
+   "expected": "All zero",
+   "actual": "{\"cookie\":0,\"ls\":0,\"ss\":0,\"idb\":0,\"sw\":0}",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-03",
+   "control": "No telemetry / analytics",
+   "method": "Scan captured requests for analytics/telemetry endpoints; sendBeacon/WebSocket usage checked in code review",
+   "expected": "0 telemetry requests",
+   "actual": "telemetry requests=0",
+   "result": "PASS",
+   "evidence": "network.json"
+  },
+  {
+   "id": "SEC-04",
+   "control": "Output encoding: file names (ASVS V5.3.3, WSTG-CLNT-01)",
+   "method": "Add 3 PDFs named with HTML/JS payloads; inspect DOM",
+   "expected": "Names shown as literal text; no element injected; no dialog",
+   "actual": "shown=[\"\\\"><svg onload=alert(2)>&amp;.pdf\",\"'-alert(3)-'<script>alert(4)<\\\\script>.pdf\",\"<img src=x onerror=alert(1)>.pdf\"]; injected={\"img\":0,\"svg\":0,\"script\":0,\"pwn\":false}; dialogs=0",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-05",
+   "control": "Output encoding: PDF metadata (Title/Author/Subject with HTML payloads)",
+   "method": "Merge a PDF whose metadata holds <img onerror>, <script>, \"><svg onload>; inspect page and output",
+   "expected": "Metadata never rendered as HTML; no script runs",
+   "actual": "metadata text rendered on page=false; dialogs=0; window.__PWN=false; output Title=\"\" (inert string in PDF)",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-06",
+   "control": "CSP blocks inline script, inline event handlers and eval (ASVS V14.4.3)",
+   "method": "Inject <script> with inline code and an <img onerror> into the live DOM; check served CSP has no unsafe-inline/unsafe-eval (eval() cannot be tested from the harness because DevTools evaluation is exempt from CSP)",
+   "expected": "Neither executes; CSP violations reported; no unsafe-* in script-src",
+   "actual": "inline ran=false; onerror ran=false; violations=8; unsafe-inline/eval in header=false",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-07",
+   "control": "CSP blocks third-party script and outbound fetch",
+   "method": "Inject <script src=cdn.jsdelivr.net/...jquery> and fetch(https://example.com)",
+   "expected": "Script not loaded; fetch refused by connect-src",
+   "actual": "jQuery loaded=false; fetch=blocked; CSP log: CSP-VIOLATION script-src-elem inline | CSP-VIOLATION script-src-elem inline | CSP-VIOLATION script-src-elem https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js | CSP-VIOLATION script-src-elem https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js | CSP-VIOLATION script-src-attr inline",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-08",
+   "control": "PDF.js arbitrary JS (CVE-2024-4367) not exploitable",
+   "method": "Load public-style PoC PDF (FontMatrix injection, payload alert + window flag) so PDF.js renders its preview",
+   "expected": "Payload not executed; PDF.js ≥ 4.2.67",
+   "actual": "PDF.js 6.4.299; payload ran=false; dialogs=0",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-09",
+   "control": "PDF document JavaScript, /Launch action and embedded file not carried to output",
+   "method": "Merge a PDF with document-level JS, OpenAction /Launch cmd.exe and an embedded file; inspect output bytes",
+   "expected": "No JS executed in browser; output has no /JavaScript, /Launch or /EmbeddedFile",
+   "actual": "dialogs=0; output contains: {\"js\":false,\"launch\":false,\"embedded\":false,\"openAction\":false,\"names\":false}",
+   "result": "PASS",
+   "evidence": "sec.json"
+  },
+  {
+   "id": "SEC-10",
+   "control": "Clickjacking: framing refused (X-Frame-Options SAMEORIGIN + frame-ancestors 'self')",
+   "method": "Embed the app in an <iframe> on a different origin (http://127.0.0.1:8832)",
+   "expected": "Browser refuses to render the app inside the frame",
+   "actual": "frame url=chrome-error://chromewebdata/; app rendered in frame=false",
+   "result": "PASS",
+   "evidence": "sec.json"
+  }
+ ]
+}

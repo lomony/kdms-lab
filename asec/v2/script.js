@@ -163,7 +163,7 @@ async function renderThumbnail(item, container, subEl){
   if(!item.thumb){
     if(typeof pdfjsLib === 'undefined') await new Promise((res,rej)=>{window.addEventListener('pdfjs-ready',res,{once:true});setTimeout(()=>rej(new Error('PDF.js not loaded')),10000);});
     const arrayBuffer = await item.file.arrayBuffer();
-    const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+    const loadingTask = pdfjsLib.getDocument({data: arrayBuffer, wasmUrl: new URL('vendor/wasm/', location.href).href, useWasm: false});
     const pdf = await loadingTask.promise;
     try {
       item.pages = pdf.numPages;

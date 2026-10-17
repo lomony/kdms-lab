@@ -1,0 +1,16 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.13.5
+Date: Sat, 17 Oct 2026 12:12:35 GMT
+Content-type: text/html
+Content-Length: 5069
+Last-Modified: Sat, 17 Oct 2026 12:00:35 GMT
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+Referrer-Policy: no-referrer
+Strict-Transport-Security: max-age=31536000
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+Cross-Origin-Opener-Policy: same-origin
+
+Content-type: text/javascript
+X-Content-Type-Options: nosniff

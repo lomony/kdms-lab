@@ -4,16 +4,22 @@ Web tools for KDMS. Each edition lives in its own folder.
 
 | Folder | Tool | For |
 |---|---|---|
-| [`asec/`](asec/) | KDMS PDF Merger | ASEC |
+| [`asec/v2/`](asec/v2/) | KDMS PDF Merger v2 (current) | ASEC |
+| [`asec/`](asec/) | Redirect to `asec/v2/` | – |
 
 ## Use it
-- **Online (GitHub Pages):** after Pages is enabled, open `https://<owner>.github.io/kdms-lab/asec/`
-  (the site root redirects to `asec/`).
-- **Streamlit:** see below, or run locally with `pip install -r requirements.txt && streamlit run streamlit_app.py`.
-- **Offline/local:** download the repo and open `asec/index.html` in Chrome, Edge or Firefox.
-  No internet connection needed: the PDF libraries are bundled in `asec/vendor/` (no CDN).
+- **Demo (GitHub Pages, synthetic test documents only):** https://lomony.github.io/kdms-lab/asec/v2/
+- **Production / intranet:** deploy the release zip (e.g. `KDMS-PDF-Merger-ASEC-v2.1.2.zip`) on a web server
+  such as IIS with the included `web.config`. A web server is required, but no internet connection: the PDF
+  libraries are bundled in `asec/v2/vendor/` (no CDN).
+- **Local testing:** serve the folder with any static web server, e.g. `python3 -m http.server` from the repo root,
+  then open `http://localhost:8000/asec/v2/`. Opening `index.html` directly from disk (`file://`) is **not supported**:
+  browsers block the ES modules and Subresource Integrity checks there, so the app shows a "not started" warning.
 
-## Deploy on Streamlit Community Cloud
+## Legacy: Streamlit wrapper (not maintained, not part of the ASEC release)
+`streamlit_app.py` is a **legacy** wrapper for the old `asec/` (v1) build. It is not included in the release zip, is not reviewed for ITSD, and should not be used for v2. The notes below are kept for reference only.
+
+### Deploy on Streamlit Community Cloud (legacy)
 On [share.streamlit.io](https://share.streamlit.io) → **Create app → Deploy a public app from GitHub**:
 
 | Field | Value |
@@ -26,11 +32,9 @@ On [share.streamlit.io](https://share.streamlit.io) → **Create app → Deploy 
 `streamlit_app.py` only embeds the static app from `asec/`; merging still runs in the
 viewer's browser and no PDF is sent to the Streamlit server.
 
-## Enable GitHub Pages (one time)
-1. Merge this branch into `main`.
-2. Go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
-3. The workflow in `.github/workflows/pages.yml` deploys on every push to `main`
-   (or run it from the **Actions** tab).
+## GitHub Pages deployment
+1. The workflow in `.github/workflows/pages.yml` deploys on push to `main` or `claude/github-asec-setup-u7mxcf`.
+2. Pages source is **GitHub Actions**. Production should use a tagged release only (verify `SHA256SUMS.txt`).
 
 ## License
 [MIT](LICENSE)

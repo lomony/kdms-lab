@@ -1,0 +1,113 @@
+[
+ {
+  "browser": "chromium 156.0.8078.4",
+  "file": "ccitt-g4.pdf",
+  "preview": {
+   "img": true,
+   "w": 140,
+   "h": 105,
+   "darkPx": 13354,
+   "colouredPx": 0
+  },
+  "cspViolations": 0,
+  "wasmFilesFetched": [
+   "jbig2_nowasm_fallback.js"
+  ],
+  "result": "PASS"
+ },
+ {
+  "browser": "chromium 156.0.8078.4",
+  "file": "jpx.pdf",
+  "preview": {
+   "img": true,
+   "w": 140,
+   "h": 105,
+   "darkPx": 0,
+   "colouredPx": 14522
+  },
+  "cspViolations": 0,
+  "wasmFilesFetched": [
+   "jbig2_nowasm_fallback.js",
+   "openjpeg_nowasm_fallback.js"
+  ],
+  "result": "PASS"
+ },
+ {
+  "browser": "chromium",
+  "consoleErrorsAndWarnings": []
+ },
+ {
+  "browser": "firefox 157.0",
+  "file": "ccitt-g4.pdf",
+  "preview": {
+   "img": true,
+   "w": 140,
+   "h": 105,
+   "darkPx": 13354,
+   "colouredPx": 0
+  },
+  "cspViolations": 0,
+  "wasmFilesFetched": [
+   "jbig2_nowasm_fallback.js"
+  ],
+  "result": "PASS"
+ },
+ {
+  "browser": "firefox 157.0",
+  "file": "jpx.pdf",
+  "preview": {
+   "img": true,
+   "w": 140,
+   "h": 105,
+   "darkPx": 0,
+   "colouredPx": 14522
+  },
+  "cspViolations": 0,
+  "wasmFilesFetched": [
+   "jbig2_nowasm_fallback.js",
+   "openjpeg_nowasm_fallback.js"
+  ],
+  "result": "PASS"
+ },
+ {
+  "browser": "firefox",
+  "consoleErrorsAndWarnings": []
+ },
+ {
+  "browser": "webkit 27.2",
+  "file": "ccitt-g4.pdf",
+  "preview": {
+   "img": true,
+   "w": 140,
+   "h": 105,
+   "darkPx": 13354,
+   "colouredPx": 0
+  },
+  "cspViolations": 0,
+  "wasmFilesFetched": [
+   "jbig2_nowasm_fallback.js"
+  ],
+  "result": "PASS"
+ },
+ {
+  "browser": "webkit 27.2",
+  "file": "jpx.pdf",
+  "preview": {
+   "img": true,
+   "w": 140,
+   "h": 105,
+   "darkPx": 0,
+   "colouredPx": 14519
+  },
+  "cspViolations": 0,
+  "wasmFilesFetched": [
+   "jbig2_nowasm_fallback.js",
+   "openjpeg_nowasm_fallback.js"
+  ],
+  "result": "PASS"
+ },
+ {
+  "browser": "webkit",
+  "consoleErrorsAndWarnings": []
+ }
+]
